@@ -1,0 +1,69 @@
+
+  
+  .area-edit {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  
+  .area-edit h2 {
+    color: var(--font-color);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .area-edit label {
+    display: block;
+    margin: 10px 0 5px;
+    color: var(--black_color);
+  }
+  
+  .area-edit input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid var(--black_color);
+    color: var(--black_color);
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .area-edit .error{
+    margin: 0.5rem 0;
+    text-align: center;
+    color: red;
+    font-size: 1rem;
+  }
+
+  .area-edit input:focus{
+    box-shadow: 0 0 5px 0 var(--font-color);
+  }
+  
+  .area-edit button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    color: var(--white_color);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    
+  }
+  
+  .area-edit button:hover {
+    filter: brightness(115%);
+  }
+  
+  .area-edit .image-preview {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+    height: auto;
+  }

@@ -1,0 +1,151 @@
+.card{
+    padding: 0.5rem;
+    width: 320px;
+    background-color: var(--white_color);
+    color: var(--font-color);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+
+.card img{
+    width: 100%;
+    object-fit:cover;
+}
+
+.card .areaName{
+    color: var(--black_color);
+    font-size: 1rem;
+}
+
+
+.card .bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.card .bottom button{
+    flex-grow: 1;
+    background-color: #c04ddd;
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    color: var(--white_color);
+    border: none;
+    padding: 0.25rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.5s;
+}
+
+.card button:hover{
+    filter: brightness(115%);
+
+}
+
+.card .like-icon{
+    cursor: pointer;
+}
+
+.card .like-icon:hover{
+    filter: brightness(115%);
+    transition: all 0.2s;
+}
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-content {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .card-popup-open .card-content {
+    transform: translateX(-120%);
+  }
+
+
+  
+  .popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--white_color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popup-animation 0.2s forwards;
+  }
+
+  @keyframes popup-animation{
+    0%{
+        overflow: hidden;
+        transform: translateX(120%);
+    }
+    50%{
+        overflow: hidden;
+        transform: translateX(60%);
+    }
+    100%{
+        overflow: hidden;
+        transform: translateX(0%);
+    }
+  }
+  
+  .popup-content {
+    background: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    color: var(--black_color);
+    font-size: 1.1rem;
+    font-weight: 450;
+  }
+
+  .popup-content span{
+    color: var(--font-color);
+    font-size: 1.5rem;
+    transition: all 0.2s;
+  }
+
+  .popup-content span:hover{
+    filter: brightness(115%);
+  }
+
+  .popup-content h2{
+    color: #333;
+  }
+
+  .popup-content .info{
+    font-size: 1rem;
+    margin-top: 3rem;
+    color: var(--secondary-color);
+  }
+
+  .popup-content .info a{
+    color: var(--secondary-color);
+  }
+
+  .popup-content .info a:any-link{
+    color: var(--secondary-color);
+  }
+
+  .popup-content .info a:focus,.popup-content .info a:hover{
+    color: var(--font-color);
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  

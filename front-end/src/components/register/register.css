@@ -1,0 +1,131 @@
+.register form{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white_color);
+    gap: 1.7rem;
+    align-items: center; /* Aligning items to the center for consistency */
+    padding: 1rem;
+    padding-inline: 1.5rem;
+    margin: 2rem auto;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+
+
+.register h1 {
+    align-self: center;
+    color: var(--font-color);
+    font-size: 2.2rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem; /* Adding margin to separate from form fields */
+}
+
+.register div {
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.register label {
+    font-size: 1.1rem;
+    margin-right: 1rem; 
+    font-weight: 460;
+    color: #333;
+}
+
+.register input, .register select {
+    width: 70%; 
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    border: 1.2px solid var(--black_color);
+    outline: none;
+    padding-left: 0.5rem; 
+    color: var(--black_color);
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.register input::placeholder{
+    font-size: 1.05rem;
+}
+
+.register select {
+    cursor: pointer;
+    padding: 0 0.5rem; /* Adding padding for select field */
+}
+
+.register input:focus,.register select:focus{
+    box-shadow: 0 0 5px 0 var(--font-color);
+}
+
+.register option {
+    width: 100%;
+    background-color: #8c23a7;
+}
+
+.register .password-container{
+    position: relative;
+    margin-bottom: 0.7rem;
+}
+
+
+
+.register .toggleButton{
+    position: absolute;
+    right: 0;
+    top: 3px;
+    border-radius: 50%;
+    font-size: 2rem;
+    padding: 0.2rem;
+    color: var(--font-color);
+    cursor: pointer;
+}
+
+.register button {
+    width: 100%;
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    border: 1px solid transparent;
+    color: var(--white_color);
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.25rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.1s ease-in-out;
+}
+
+.register button:hover, .register button:focus {
+    filter:brightness(115%);
+}
+
+.register a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--secondary-color); /* Matching the theme color */
+    font-size: 1.2rem; /* Standard font size */
+}
+
+.register .register-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.register .register-container .loading{
+    color: var(--font-color);
+}
+
+.register .error{
+    color: red;
+    font-size: 1rem;
+}

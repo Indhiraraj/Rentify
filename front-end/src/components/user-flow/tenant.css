@@ -1,0 +1,16 @@
+.tenant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;/* Ensures the container takes up the full viewport height */
+}
+
+.areas {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 1.5rem;
+  margin:3rem 0 1.5rem;
+}

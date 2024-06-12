@@ -1,0 +1,63 @@
+.area-card{
+    padding: 0.5rem;
+    width: 320px;
+    background-color: var(--white_color);
+    color: var(--font-color);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: var(--shadow);
+}
+
+.area-card img{
+    width: 100%;
+    object-fit:cover;
+}
+
+.area-card .areaName{
+    color: var(--black_color);
+    font-size: 1rem;
+}
+
+
+.area-card .bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.area-card .bottom button{
+    flex-grow: 1;
+    background-color: #c04ddd;
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    color: var(--white_color);
+    border: none;
+    padding: 0.25rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.5s;
+}
+
+.area-card button:hover{
+    filter: brightness(120%);
+
+}
+
+.area-card .edit-icon{
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+
+.area-card .edit-icon:hover{
+    filter:brightness(120%)
+}
+
+
