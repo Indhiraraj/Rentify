@@ -87,7 +87,7 @@ const AreaRegistrationForm = () => {
       body: formDataToSend,
     });
     if (response.ok) {
-      navigate("/");
+      navigate("/rent");
     } else {
       setError("couldnt upload area,try later");
     }
@@ -236,8 +236,12 @@ const AreaRegistrationForm = () => {
         {error && <p className="error">{error}</p>}
         {loading ? (
           <button>Loading...</button>
-        ) : (
+        ) : (<>
           <button type="submit">Register Area</button>
+          <button onClick={() => {
+            navigate("/rent")
+          }}>Cancel</button>
+          </>
         )}
       </form>
     </div>

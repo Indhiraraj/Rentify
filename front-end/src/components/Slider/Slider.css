@@ -1,0 +1,27 @@
+.slider {
+    position: relative;
+}
+
+
+.slider .left-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-40%);
+    left: -52px;
+    font-size: 7rem;
+     color: var(--white_color);
+     font-weight: 100;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.slider .right-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-40%);
+    right: -52px;
+    font-size: 7rem;
+    color: var(--white_color);
+    z-index: 1;
+    cursor: pointer;
+}

@@ -129,7 +129,7 @@ const AreaEdit = () => {
       body: formDataToSend,
     });
     if (response.ok) {
-        navigate("/");
+        navigate("/rent");
     } else {
       setError("couldnt edit area,try later");
     }
@@ -279,8 +279,12 @@ const AreaEdit = () => {
         {error && <p className="error">{error}</p>}
         {loading ? (
           <button>Loading...</button>
-        ) : (
+        ) : (<>
           <button type="submit">Update Area</button>
+          <button onClick={() => {
+            navigate("/rent")
+          }}>Cancel</button>
+          </>
         )}
       </form>
     </div>

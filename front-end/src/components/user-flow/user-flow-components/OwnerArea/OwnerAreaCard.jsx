@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ownerArea.css";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useNavigate } from "react-router";
@@ -6,9 +6,12 @@ import { useNavigate } from "react-router";
 const OwnerAreaCard = (props) => {
   const navigate = useNavigate();
 
+
   const handleRemoveArea = async () => {
     const response = await fetch(
-      `http://localhost:4000/area/remove/${props.areaId}`
+      `http://localhost:4000/area/remove/${props.areaId}`,{
+        method: "DELETE"
+      }
     );
 
     const data = await response.json();

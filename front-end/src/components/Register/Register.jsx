@@ -99,26 +99,17 @@ const Register = () => {
             <form onSubmit={handleRegister}>
                 <h1>Registration</h1>
                 <div>
-                    <label>Username</label>
                     <input name='userName' value={formData.userName} onChange={handleChange} type='text' placeholder='Username' required autoComplete="off"/>
                 </div>
                 <div>
-                    <label>Email</label>
                     <input name='email' value={formData.email} onChange={handleChange} type='text' placeholder='Email' required autoComplete="off" />
                 </div>
                 <div>
-                    <label>Number</label>
                     <input name='contact' maxLength={10} value={formData.contact} onChange={handleChange} type='text' placeholder='Phone Number' required />
                 </div>
-                <div>
-                    <label>Type</label>
-                    <select name='type' onChange={handleChange} value={formData.type} required>
-                        <option value='tenant'>Tenant</option>
-                        <option value='owner'>Owner</option>
-                    </select>
-                </div>
+              
                 <div className='password-container'>
-                    <label>Password</label>
+                    
                    
                     <input name='password' value={formData.password} onChange={handleChange} placeholder='Password' type={isPasswordVisible ? 'text' : 'password'} required autoComplete='new-password'/>
                     

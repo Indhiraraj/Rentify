@@ -14,6 +14,8 @@ const RentifyContextProvider = ({children}) => {
           password:""
       })
 
+      const [reviews,setReviews] = useState(null)
+
     const login = (userData)=>{
       AuthServiceProvider.login(userData);
         setUser(userData)
@@ -24,7 +26,7 @@ const RentifyContextProvider = ({children}) => {
         setUser(null)
     }
   return (
-    <RentifyContext.Provider value={{login,logout,user,formData,setFormData}}>
+    <RentifyContext.Provider value={{login,logout,user,formData,setFormData,reviews,setReviews}}>
         {children}
     </RentifyContext.Provider>
   )

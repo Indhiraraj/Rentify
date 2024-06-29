@@ -17,6 +17,12 @@ const client = new MongoClient(uri, {
   },
 });
 
+try {
+  await client.connect()
+} catch (error) {
+  console.log("couldn't connect to mongodb server: " + error.message);
+}
+
 const db = client.db("rentify");
 
 const app = express();
@@ -37,7 +43,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173","http://192.168.38.144:5173"],
   methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
@@ -73,7 +79,9 @@ const sendVerificationEmail = async (verification) => {
     to: verification.email,
     subject: "verification",
     text: `Your verification code is : ${verification.verification_code}`,
-    html: "",
+    html: `<h1 style="color:#333">Welcome to rentify</h1>
+           <p style="color:#333;font-size:1rem;">Finish your registration process by entering the verification code</p>
+           <p style="color:#333;font-size:1rem;">Your Verification code : <span style="border: 1px solid #333;padding:0.5rem;font-size:1.2rem;border-radius:5px;">${verification.verification_code}</span></p>`,
   };
   try {
     await transporter.sendMail(mailOptions);
@@ -200,7 +208,7 @@ app.get("/areas/:areaId", async (req, res) => {
   }
 });
 
-app.get("/area/remove/:areaId", async (req, res) => {
+app.delete("/area/remove/:areaId", async (req, res) => {
   try {
     const area_collection = db.collection("areas");
     const area = await area_collection.findOne({ areaId: req.params.areaId });
@@ -214,7 +222,7 @@ app.get("/area/remove/:areaId", async (req, res) => {
   }
 });
 
-app.post("/area/edit/", upload.single("areaImg"), async (req, res) => {
+app.put("/area", upload.single("areaImg"), async (req, res) => {
   try {
     let area = req.body;
    
@@ -328,10 +336,10 @@ app.post("/sendMail", async (req, res) => {
       to: userEmail,
       subject: "owner data",
       text: "",
-      html: `<h3>The details of your interested area's owner is below</h3>
-        <p>Owner Name: ${ownerDetails.userName}</p>
-        <p>Email: ${ownerDetails.email}</p>
-        <p>Contact: ${ownerDetails.contact}</p>`,
+      html: `<h3 style="color:#333">The details of your interested area's owner is below</h3>
+        <p style="color:#333;font-size:1rem;">Owner Name: ${ownerDetails.userName}</p>
+        <p style="color:#333;font-size:1rem;">Email: ${ownerDetails.email}</p>
+        <p style="color:#333;font-size:1rem;">Contact: ${ownerDetails.contact}</p>`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -378,22 +386,25 @@ app.post("/verify", async (req, res) => {
   }
 });
 
-app.get("/retry/:userEmail", async (req, res) => {
+app.put("/retry/:userEmail", async (req, res) => {
   try {
     const verification_collection = db.collection("verification");
     const verification_list = await verification_collection.find({}).toArray();
     verification_list.map(async (verification) => {
       if (verification.email === req.params.userEmail) {
         const filter = { _id: verification._id };
+        const newVerificationCode = Math.floor(
+          100000 + Math.random() * 900000
+        ).toString();
         const updateDocument = {
           $set: {
-            verification_code: Math.floor(
-              100000 + Math.random() * 900000
-            ).toString(),
+            verification_code: newVerificationCode,
           },
         };
-        await verification_collection.updateOne(filter, updateDocument);
-        sendVerificationEmail(verification);
+       await verification_collection.updateOne(filter, updateDocument);
+        
+        const newVerification = {...verification,verification_code:newVerificationCode}
+        sendVerificationEmail(newVerification);
         return res.status(200).json({ message: "email sent successfully" });
       }
     });
@@ -402,6 +413,18 @@ app.get("/retry/:userEmail", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || port, () => {
+
+app.get("/user-reviews",async (req,res) => {
+  try {
+    const review_collection = db.collection("reviews");
+    const response = review_collection.find({});
+    const reviews = await response.toArray();
+    res.status(200).json({reviews : reviews})
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+})
+
+app.listen(process.env.PORT || port,'0.0.0.0', () => {
   console.log("Server started");
 });

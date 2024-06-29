@@ -1,25 +1,72 @@
 .card{
-    padding: 0.5rem;
-    width: 320px;
-    background-color: var(--white_color);
-    color: var(--font-color);
+    width: 350px;
+    background-color: transparent;
+    border: none;
+    /* color: var(--black_color); */
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    border: none;
-    box-shadow: var(--shadow);
 }
+
 
 
 .card img{
     width: 100%;
     object-fit:cover;
+    border-radius: 20px;
+    margin-bottom: 0.25rem;
+}
+
+.img-icon{
+  position: relative;
+}
+
+.img-icon .fav-icon{
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  cursor: pointer;
+}
+
+.img-icon .fav-icon-full{
+  fill: var(--font-color);
+  stroke: var(--white_color);
+  stroke-width: 1.5px;
+}
+
+.img-icon .fav-icon-border{
+  fill: rgba(0, 0, 0, 0.5);
+  stroke: var(--white_color);
+  stroke-width: 1.5px;
 }
 
 .card .areaName{
-    color: var(--black_color);
+  /* padding-inline-start: 0.5rem; */
+    /* color: var(--black_color); */
     font-size: 1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 900;
+}
+
+.card h5{
+  color: var(--black_color);
+  /* padding-inline-start: 0.5rem; */
+}
+
+.card .price-rating{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline-end: 0.5rem;
+  /* padding-inline-start: 0.5rem;    */
+}
+
+.price-rating p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.05rem;
+  margin-bottom: 0.15rem;
 }
 
 
@@ -28,6 +75,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.5em;
+    /* padding-inline: 0.5rem; */
 }
 
 .card .bottom button{

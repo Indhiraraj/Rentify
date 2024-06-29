@@ -7,14 +7,16 @@
     min-height: 100vh;
     color: var(--black-color);
     margin-top: 3rem;
+    scroll-margin-top: 16rem;
 }
 
 
 
 .owner .add{
+    position: relative;
     background-color: var(--secondary-color);
     width: 8rem;
-    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color)); 
     color: var(--white_color);
     border: none;
     font-size: 1rem;
@@ -23,11 +25,25 @@
     transition: all 0.2s;
     cursor: pointer;
     align-items: center;
+    /* border:1px solid rgba(0, 0, 0, 0); */
 }
 
-.owner .add:hover{
-    filter: brightness(120%);
+.add:hover{
+    filter: brightness(115%);
 }
+
+/* :has(.add:hover) .add::after{
+    position: absolute;
+    z-index: -1;
+    content: "";
+    inset: -1px;
+    border-radius: inherit;
+    background-color: gold;
+    border: 2px solid green; 
+    background: linear-gradient(to right,#1f91d3,var(--secondary-color)); 
+    filter: blur(25px) brightness(1.8);
+}
+ */
 
 .owner .areas-container{
     display: flex;

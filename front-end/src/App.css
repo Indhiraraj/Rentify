@@ -1,9 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kurale&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-margin-top: 8rem;
+}
+
+/* Change the background color of selected text */
+::selection {
+  background-color: #1ca4ff; /* Change this to the desired color */
+  color: #ffffff;         /* Change this to the desired text color */
+}
+
+/* For WebKit browsers (Safari, Chrome) */
+::-webkit-selection {
+  background-color: #1ca4ff; /* Change this to the desired color */
+  color: #ffffff;            /* Change this to the desired text color */
+}
+
+/* For Mozilla browsers (Firefox) */
+::-moz-selection {
+  background-color: #1ca4ff; /* Change this to the desired color */
+  color: #ffffff;            /* Change this to the desired text color */
+}
+
+
+html{
+  scroll-behavior: smooth;
 }
 
 #root {
@@ -13,11 +37,15 @@
 :root{
   --white_color: #fff;
   --black_color: #585050;
-  --shadow: 0 0 4px 0 #333;
-  --font-color: #ba52d4;
-  --border-color: #8c23a7;
-  --secondary-color: #8833a1;
+  --shadow: 0 0 4.5px 0 #333;
+  --font-color: #1ca4ff;
+  --border-color: #1469af;
+  --secondary-color: #1461a0;
+  --highlight-color: #ffcc00;
+  --footer-header-background: #1461a0;
+  --button-gradient: linear-gradient(to right, #1461a0 0%, #1ca4ff  50%, #1461a0  100%);
   --background-color: #f1f1f1;
+  --transparent-background: hsla(0, 0%, 0%, 0.775);
 }
 
 image {
@@ -27,16 +55,28 @@ image {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Kurale", serif;
   font-size: 1rem;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   background: var(--background-color);
-  filter: brightness(110%);
 }
 
 input,select,button{
     font: inherit;
 }
+
+input{
+  letter-spacing: 1.25px;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+         
+         
+
+

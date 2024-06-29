@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./login.css";
 import { RentifyContext } from "../ContextProvider/RentifyContextProvider";
 import { useNavigate } from "react-router";
+import { TailSpin,Audio ,ThreeDots} from "react-loader-spinner";
 
 const Login = () => {
   const { login,setFormData } = useContext(RentifyContext);
@@ -13,6 +14,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const handleSignUp = () => {
+    navigate("/register")
+  }
 
   const handleClick = () => {
     setFormData({
@@ -67,11 +72,12 @@ const Login = () => {
     <div className="login">
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        <div>
-          <label>Email</label>
+        <div className="input-wrapper">
+          
           <input
             type="email"
             name="email"
+            id="email"
             value={loginFormData.email}
             onChange={handleChange}
             required
@@ -79,11 +85,12 @@ const Login = () => {
             placeholder="Email"
           ></input>
         </div>
-        <div>
-          <label>Password</label>
+        <div className="input-wrapper">
+          
           <input
             type="password"
             name="password"
+            id="password"
             value={loginFormData.password}
             onChange={handleChange}
             required
@@ -91,10 +98,24 @@ const Login = () => {
             placeholder="Password"
           ></input>
         </div>
+        <p className="f-password">Forget password?</p>
         <div className="bottom">
-          {loading ? <p className="loading">Loading...</p> : <>{error ? <p className="error">{error}</p> : null}</>}
+          {error && <p className="error">{error}</p>}
           {displayVerification && <p className="verification">Still not verified, <span onClick={handleClick} className="link">verify now</span></p>}
-        <button type="submit">Login</button>
+         {loading ? <button> <ThreeDots
+            type="audio"
+            height="38"
+            fontSize="inherit"
+            width="30"
+            color="#fff"
+            ariaLabel="tail-spin-loading"
+            radius="1"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+        /></button> : <button type="submit">Login</button>} 
+        
+        <p className="register-link">Don't have account? <span onClick={handleSignUp} className="info">Signup now</span></p>
         </div>
         
       </form>

@@ -1,37 +1,50 @@
 import React, { useContext } from 'react';
-import Register from './components/register/Register';
-import  { RentifyContext } from './components/ContextProvider/RentifyContextProvider';
-import Home from './components/user-flow/Home';
-import './App.css'
-import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Register from './components/Register/Register';
+import { RentifyContext } from './components/ContextProvider/RentifyContextProvider';
 import Login from './components/login/Login';
-import Header from './components/header/Header';
 import UserVerification from './components/UserVerification/UserVerification';
 import AreaRegistrationForm from './components/user-flow/user-flow-components/AreaRegistration/AreaRegistrationForm';
 import AreaEdit from './components/user-flow/user-flow-components/areaEdit/AreaEdit';
+import HomePage from './components/Landing Page/HomePage';
+import Tenant from './components/user-flow/Tenant';
+import Owner from './components/user-flow/Owner';
+import Navbar from './components/Navbar/Navbar';
+import './App.css';
 
 function App() {
-  const {user} = useContext(RentifyContext)
+  const { user } = useContext(RentifyContext);
+  const location = useLocation();
+
+  // Define the routes where Navbar should not be displayed
+  const noNavbarRoutes = ['/register', '/login'];
 
   return (
-<Router>
-  {user ? null : <Header/>}
-
-<Routes>
-<Route path='/' element={user ? <Home /> : <Register />}></Route>
-<Route path='/register' Component={Register}></Route>
-<Route path='/login' Component={Login}></Route>
-<Route path='/verification' Component={UserVerification}></Route>
-{user && <>
-  
-<Route path='/areaRegistration' Component={AreaRegistrationForm}></Route>
-<Route path='/areaEdit' Component={AreaEdit}></Route>
-</>}
-
-</Routes>
-</Router>
-
+    <>
+      {!noNavbarRoutes.includes(location.pathname) && <Navbar />}
+      <Routes>
+        <Route path='/' Component={HomePage} />
+        <Route path='/register' Component={Register} />
+        <Route path='/login' Component={Login} />
+        <Route path='/verification' Component={UserVerification} />
+        <Route path='/buy' Component={Tenant} />
+        <Route path='/rent' Component={Owner} />
+        {user && <>
+          <Route path='/areaRegistration' Component={AreaRegistrationForm} />
+          <Route path='/areaEdit' Component={AreaEdit} />
+        </>}
+      </Routes>
+    </>
   );
 }
 
-export default App;
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
+export default AppWrapper;
+  

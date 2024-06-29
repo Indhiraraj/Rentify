@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./tenant.css";
 import AreaCard from "./user-flow-components/AreaCard/AreaCard";
+import Navbar from "../Navbar/Navbar";
+
+
 
 const Tenant = () => {
   const [areas, setAreas] = useState(null);
@@ -24,6 +27,7 @@ const Tenant = () => {
 
   return (
     <div className="tenant">
+      
       {areas ? (
         <div className="areas">
           {areas.map((area) => (
@@ -33,6 +37,9 @@ const Tenant = () => {
               areaImg={area.img}
               ownerId={area.ownerId}
               areaId={area.areaId}
+              ratings={area.ratings?.averageRating}
+              address={area.address}
+              price={area.priceRange}
             />
           ))}
         </div>

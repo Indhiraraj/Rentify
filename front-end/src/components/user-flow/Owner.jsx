@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./owner.css";
 import { RentifyContext } from "../ContextProvider/RentifyContextProvider";
 import { useNavigate } from "react-router";
-import AreaCard from "./user-flow-components/AreaCard/AreaCard";
 import OwnerAreaCard from "./user-flow-components/OwnerArea/OwnerAreaCard";
 
 const Owner = () => {
@@ -10,7 +9,14 @@ const Owner = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useContext(RentifyContext);
   const navigate = useNavigate();
-  const areaRefs = useRef([]);
+
+  useEffect(() => {
+    if (areas) {
+      if (areas.length === 0) {
+        setAreas(null)
+      }
+    }
+  }, [areas]);
 
   useEffect(() => {
     const getAreas = async () => {
@@ -31,6 +37,7 @@ const Owner = () => {
     };
 
     getAreas();
+
   }, []);
 
   const handleClick = () => {
@@ -38,7 +45,7 @@ const Owner = () => {
   };
 
   const handleRemoveArea = (areaId) => {
-    setAreas(areas.filter((area) => area.areaId !== areaId));
+    setAreas( (prevAreas) => prevAreas.filter((area) => area.areaId !== areaId));
   };
 
   return (

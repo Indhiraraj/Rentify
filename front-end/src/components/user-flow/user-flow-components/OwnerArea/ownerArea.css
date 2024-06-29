@@ -1,23 +1,24 @@
 .area-card{
     padding: 0.5rem;
     width: 320px;
-    background-color: var(--white_color);
+    background-color: transparent;
     color: var(--font-color);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    box-shadow: var(--shadow);
 }
 
 .area-card img{
     width: 100%;
     object-fit:cover;
+    border-radius: 20px;
 }
 
 .area-card .areaName{
     color: var(--black_color);
-    font-size: 1rem;
+    font-size: 1.35rem;
+    font-weight: 900;
 }
 
 

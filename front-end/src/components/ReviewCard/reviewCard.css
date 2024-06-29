@@ -1,0 +1,82 @@
+.review-card{
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: wrap;
+    align-items: center;
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: var(--font-color);
+    background: linear-gradient(var(--font-color),var(--secondary-color));
+    color: var(--white_color);
+    transition: all 0.2s ease-in-out;
+    flex-shrink: 0;
+    gap: 1.25rem;
+}
+
+.fade-in {
+    animation: fadeIn 0.25s forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.25s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.user-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 0.25rem;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.user-profile .profile-icon{
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+    border: 1px solid var(--font-color);
+}
+
+.user-profile .user-name{
+    font-size: 1.25rem;
+    font-weight: 660;
+}
+
+.review-card .review p{
+    position: relative;
+    margin-inline: auto;
+    text-align: justify;
+    width: 90%;
+    font-size: 0.95rem;
+    font-weight: 390;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.review p span{
+    position: absolute;
+    top: -3px;
+    left: -11px;
+}
+

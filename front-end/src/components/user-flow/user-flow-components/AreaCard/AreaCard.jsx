@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import './card.css';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { Star, Favorite } from "@mui/icons-material";
 import { RentifyContext } from '../../../ContextProvider/RentifyContextProvider';
 
+
+
 const AreaCard = (props) => {
-    const [liked, setLiked] = useState(false);
+    const [favourite, setFavourite] = useState(false);
     const [loading, setLoading] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [ownerDetails, setOwnerDetails] = useState(null);
@@ -39,14 +40,31 @@ const AreaCard = (props) => {
     return (
         <article className={`card ${popupOpen ? 'card-popup-open' : ''}`}>
             <div className="card-content">
+                <div className='img-icon'>
+                {favourite ? (
+                    <Favorite onClick={() => setFavourite(!favourite)} className="fav-icon fav-icon-full" />
+                ) : (
+                    <Favorite onClick={() => setFavourite(!favourite)} className="fav-icon fav-icon-border" />
+                )}
+
                 <img src={props.areaImg} alt='house-img' width="280px" height="300px"></img>
+                </div>
+                
                 <h2 className='areaName'>{props.areaName}</h2>
+                <h5>{props.address}</h5>
+                {props.price ? (
+                    <div className="price-rating">
+                        <p>{props.price}</p>
+                        {props.ratings && <p><Star fontSize='inherit'/>{props.ratings}</p>}
+                    </div>
+                ) : (
+                    <div className="price-rating">
+                        <p>Negotiable</p>
+                        {props.ratings && <p><Star fontSize='inherit'/>{props.ratings}</p>}
+                    </div>
+                )}
                 <div className='bottom'>
                     {loading ? <button>Loading...</button> : <button onClick={sendMail}>I'm Interested</button>}
-    
-                    <div className='like-icon' onClick={() => setLiked(!liked)}>
-                        {liked ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
-                    </div>
                 </div>
             </div>
 

@@ -1,101 +1,139 @@
-.login form{
-    width: 450px;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--white_color);
-    border: 1px solid transparent;
-    padding: 1.2rem;
-    margin: 5rem auto;
-    border-radius: 15px;
-    align-items: center;
-    gap: 3rem;
-    justify-content: center;
-    box-shadow: var(--shadow);
-    font-size: 1.2rem;
+.login {
+  background: linear-gradient(rgba(0, 0, 0, 0.125), rgba(0, 0, 0, 0.125)),
+    url("login-background.jpg");
+    background: url("login-background.jpg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  min-height: 100svh;
+  color: var(--white_color);
+
 }
 
-.login h1{
-    width: 100%;
-    font-size: 2.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #be6cd3;
+.login form {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--transparent-background);
+  border: 1px solid transparent;
+  padding: 1.2rem;
+  border-radius: 15px;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  font-size: 1.2rem;
+  backdrop-filter: blur(3.5px);
 }
 
-.login div{
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+.login h1 {
+  width: 100%;
+  font-size: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--font-color);
 }
 
-.login label{
-    margin-right: 1rem;
-    font-size: 1.1rem;
-    font-weight: 450;
-    color: var(--black_color);
+.login .input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: var(--white_color);
 }
 
-.login input{
-    width: 75%;
-    background-color: transparent;
-    border-radius: 5px;
-    border: 1px solid var(--black_color);
-    color: var(--black_color);
-    /* font-size: 1.5rem; */
-    outline: none;
-    padding: 0.2rem;
-    transition: all 0.15s ease-in-out;
+
+
+.login input {
+  width: 100%;
+  height: 2.35rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  border: 1.2px solid var(--black_color);
+  background: var(--transparent-background);
+  outline: none;
+  padding-left: 0.5rem;
+  color: var(--white_color);
+  font-size: 1.2rem;
+  transition: all 0.25s ease-in-out;
 }
 
-.login input:focus{
-    box-shadow: 0 0 5px 0 var(--font-color);
+.login input:focus {
+  /* box-shadow: 0 0 2px 0 var(--font-color); */
+  border: 1px solid var(--font-color);
 }
 
-.login input::placeholder{
-    font-size: 1rem;
+.login input::placeholder {
+  font-size: 1rem;
 }
 
-.login button{
-    width: 100%;
-    padding: 0.25rem;
-    font-size: 1.5rem;
-    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
-    border: transparent;
-    color: var(--white_color);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+.login button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--font-color);
+  border: 1px solid transparent;
+  color: var(--white_color);
+  border-radius: 5px;
+  text-align: center;
+  padding: 0.25rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  background-size: 200% auto;
+  transition: all 0.2s ease-in-out;
 }
 
-.login button:hover,.login button:focus{
-    filter:brightness(115%);
+.login button:hover,
+.login button:focus {
+  box-shadow: 0 0 5px 3px var(--white_color);
 }
 
-.login .bottom{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
+.login .bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
 }
 
-.login .loading{
-    color: var(--font-color);
+.login .loading {
+  color: var(--font-color);
 }
 
-.login .error{
-    color: red;
-    font-size: 1rem;
+.login .error {
+  color: red;
+  font-size: 1rem;
 }
 
-.login .verification{
-    font-size: 1rem;
-    color: var(--black_color);
+.login .verification {
+  font-size: 1rem;
+  color: var(--font-color);
 }
 
-.login .verification .link{
-    color: var(--secondary-color);
-    cursor: pointer;
-    text-decoration: underline;
+.login .verification .link {
+  color: var(--font-color);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login .register-link {
+  font-size: 1.1rem;
+  padding: 0.1rem;
+  margin-top: 0.5rem;
+}
+
+.login .register-link span {
+  cursor: pointer;
+  color: var(--font-color);
+}
+
+.login .f-password {
+  font-size: 1rem;
+  color: var(--font-color);
+  cursor: pointer;
 }
