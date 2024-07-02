@@ -7,6 +7,9 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 import { getImageLink } from "./firebase.js";
 import multer from "multer";
 
+//----------------------------------------------DATABASE CONFIGURATION-----------------------------------------------//
+
+
 const uri =
   "mongodb+srv://indhiraraj7:msLEghAuHzCUgvRQ@cluster0.rpstvnd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const client = new MongoClient(uri, {
@@ -24,6 +27,9 @@ try {
 }
 
 const db = client.db("rentify");
+
+//----------------------------------------------EXPRESS AND CORS CONFIGURATION-----------------------------------------------//
+
 
 const app = express();
 
@@ -51,7 +57,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const port = 4000;
+
+
+//----------------------------------------------FUNCTIONS-----------------------------------------------//
 
 const fetchUserData = async (userId) => {
   const user_collection = db.collection("users");
@@ -89,6 +97,51 @@ const sendVerificationEmail = async (verification) => {
     console.log(error);
   }
 };
+
+
+const formatData = (area) => {
+  const formattedData = {
+    ...area,
+    facilities: area.facilities.split(",").map((item) => item.trim()),
+    publicTransport: area.publicTransport
+      .split(",")
+      .map((item) => item.trim()),
+    securityFeatures: area.securityFeatures
+      .split(",")
+      .map((item) => item.trim()),
+    greenSpaces: area.greenSpaces.split(",").map((item) => item.trim()),
+    internetProviders: area.internetProviders
+      .split(",")
+      .map((item) => item.trim()),
+  };
+
+  return formattedData;
+}
+
+const sendOwnerData = async (userEmail,ownerDetails) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    auth: {
+      user: "764255001@smtp-brevo.com",
+      pass: "1ksgdRprYTFSaCVJ",
+    },
+  });
+  let mailOptions = {
+    from: "indhiraraj7@gmail.com",
+    to: userEmail,
+    subject: "owner data",
+    text: "",
+    html: `<h3 style="color:#333">The details of your interested area's owner is below</h3>
+      <p style="color:#333;font-size:1rem;">Owner Name: ${ownerDetails.userName}</p>
+      <p style="color:#333;font-size:1rem;">Email: ${ownerDetails.email}</p>
+      <p style="color:#333;font-size:1rem;">Contact: ${ownerDetails.contact}</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
+//----------------------------------------------AUTHENTICATION-----------------------------------------------//
 
 app.post("/register", async (req, res) => {
   try {
@@ -164,6 +217,8 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//----------------------------------------------USER-----------------------------------------------//
+
 app.get("/users/:userId", async (req, res) => {
   const userId = req.params.userId;
 
@@ -178,6 +233,8 @@ app.get("/users/:userId", async (req, res) => {
     res.status(404).json({ error: "User not found" });
   }
 });
+
+//----------------------------------------------AREAS-----------------------------------------------//
 
 app.get("/user/:userId/areas", async (req, res) => {
   try {
@@ -236,40 +293,13 @@ app.put("/area", upload.single("areaImg"), async (req, res) => {
       );
 
       area = {
-        $set: {
-          ...area,
-          img: imageLink,
-          facilities: area.facilities.split(",").map((item) => item.trim()),
-      publicTransport: area.publicTransport
-        .split(",")
-        .map((item) => item.trim()),
-      securityFeatures: area.securityFeatures
-        .split(",")
-        .map((item) => item.trim()),
-      greenSpaces: area.greenSpaces.split(",").map((item) => item.trim()),
-      internetProviders: area.internetProviders
-        .split(",")
-        .map((item) => item.trim()),
-        },
+        $set: formatData(area),
       };
     } else {
       let {areaImg,...Area} = area;
      
       area = {
-        $set: {
-          ...Area,
-          facilities: area.facilities.split(",").map((item) => item.trim()),
-      publicTransport: area.publicTransport
-        .split(",")
-        .map((item) => item.trim()),
-      securityFeatures: area.securityFeatures
-        .split(",")
-        .map((item) => item.trim()),
-      greenSpaces: area.greenSpaces.split(",").map((item) => item.trim()),
-      internetProviders: area.internetProviders
-        .split(",")
-        .map((item) => item.trim()),
-        },
+        $set: formatData(Area),
       };
     }
     // console.log(area);
@@ -288,29 +318,18 @@ app.post("/area", upload.single("areaImg"), async (req, res) => {
 
     let imageLink = await getImageLink(area.ownerId, area.name, req.file.path);
     const area_collection = db.collection("areas");
-    console.log(imageLink);
+    
     area = { ...area, img: imageLink, areaId: crypto.randomUUID() };
-    const formattedData = {
-      ...area,
-      facilities: area.facilities.split(",").map((item) => item.trim()),
-      publicTransport: area.publicTransport
-        .split(",")
-        .map((item) => item.trim()),
-      securityFeatures: area.securityFeatures
-        .split(",")
-        .map((item) => item.trim()),
-      greenSpaces: area.greenSpaces.split(",").map((item) => item.trim()),
-      internetProviders: area.internetProviders
-        .split(",")
-        .map((item) => item.trim()),
-    };
-    await area_collection.insertOne(formattedData);
+    
+    await area_collection.insertOne(formatData(area));
     res.status(200).json({ message: "Success" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Error, couldn't upload area" });
   }
 });
+
+//----------------------------------------------MAIL-----------------------------------------------//
 
 app.post("/sendMail", async (req, res) => {
   const userEmail = req.body.userMail;
@@ -323,26 +342,9 @@ app.post("/sendMail", async (req, res) => {
       console.log("user not found");
       return res.status(404).json({ message: "user not found" });
     }
-    let transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
-      auth: {
-        user: "764255001@smtp-brevo.com",
-        pass: "1ksgdRprYTFSaCVJ",
-      },
-    });
-    let mailOptions = {
-      from: "indhiraraj7@gmail.com",
-      to: userEmail,
-      subject: "owner data",
-      text: "",
-      html: `<h3 style="color:#333">The details of your interested area's owner is below</h3>
-        <p style="color:#333;font-size:1rem;">Owner Name: ${ownerDetails.userName}</p>
-        <p style="color:#333;font-size:1rem;">Email: ${ownerDetails.email}</p>
-        <p style="color:#333;font-size:1rem;">Contact: ${ownerDetails.contact}</p>`,
-    };
 
-    await transporter.sendMail(mailOptions);
+    await sendOwnerData(userEmail,ownerDetails);
+
     res
       .status(200)
       .json({ message: "successfully sent email", owner: ownerDetails });
@@ -351,6 +353,8 @@ app.post("/sendMail", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+//----------------------------------------------VERIFICATION-----------------------------------------------//
 
 app.post("/verify", async (req, res) => {
   const user_code = req.body.user_verification_code;
@@ -413,6 +417,7 @@ app.put("/retry/:userEmail", async (req, res) => {
   }
 });
 
+//----------------------------------------------USER REVIEWW-----------------------------------------------//
 
 app.get("/user-reviews",async (req,res) => {
   try {
@@ -424,6 +429,89 @@ app.get("/user-reviews",async (req,res) => {
     res.status(500).json({message: error})
   }
 })
+
+//----------------------------------------------WishList-----------------------------------------------//
+
+app.get("/wishlist/:userId",async (req,res) => {
+  const wishlist_collection = db.collection("wish-list"); 
+  const userId = req.params.userId;
+  try {
+    const wishlist = wishlist_collection.find({userId : userId});
+  const wishlist_data = await wishlist.toArray();
+  res.status(200).json({wishlist : wishlist_data[0]});
+  
+  } catch (error) {
+    res.status(400).json({message : "Wishlist not found, try later"})
+  }
+  
+})
+
+app.post("/wishlist/:userId",async (req,res) => {
+  const wishlist_collection = db.collection("wish-list"); 
+  const userId = req.params.userId;
+  
+  try {
+    const wishlist_data = await wishlist_collection.findOne({userId : userId});
+
+  if(wishlist_data){
+    const filter = {userId : userId}
+    const updated_wishlist_data = {
+      $set : {
+        ...wishlist_data,
+        areas : [...wishlist_data.areas,req.body.area],
+        updatedAt : Date.now()
+      }
+    }
+
+    await wishlist_collection.updateOne(filter,updated_wishlist_data);
+  }
+  else{
+      const wishlist = {
+        userId : userId,
+        areas : [req.body.area],
+        createdAt : Date.now()
+      }
+      await wishlist_collection.insertOne(wishlist);
+  }
+  res.status(200).json({message : "wishlist addedd successfully"});
+  
+  } catch (error) {
+    res.status(400).json({message : "Wishlist not found, try later"})
+  }
+})
+
+app.delete("/wishlist/:userId",async (req,res) => {
+    const wishlist_collection = db.collection("wish-list"); 
+  const userId = req.params.userId;
+  try {
+    const wishlist_data = await wishlist_collection.findOne({userId : userId});
+
+  if(wishlist_data){
+    const filter = {userId : userId}
+    const updated_wishlist_data = {
+      $set : {
+        ...wishlist_data,
+        areas : wishlist_data.areas.filter((area) => area != req.body.area),
+        updatedAt : Date.now()
+      }
+    }
+
+    await wishlist_collection.updateOne(filter,updated_wishlist_data);
+    res.status(200).json({message : "success"})
+  }
+  else{
+    throw new Error("Wishlist not found")
+  }
+    
+  } catch (error) {
+    res.status(400).json({message : error.message})
+  }
+})
+
+
+//----------------------------------------------PORT-----------------------------------------------//
+
+const port = 4000;
 
 app.listen(process.env.PORT || port,'0.0.0.0', () => {
   console.log("Server started");

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './card.css';
 import { Star, Favorite } from "@mui/icons-material";
 import { RentifyContext } from '../../../ContextProvider/RentifyContextProvider';
@@ -10,7 +10,13 @@ const AreaCard = (props) => {
     const [loading, setLoading] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [ownerDetails, setOwnerDetails] = useState(null);
-    const { user } = useContext(RentifyContext);
+    const { user,fetchWishlist,wishlist } = useContext(RentifyContext);
+
+    useEffect(()=>{
+        if (wishlist.includes(props.areaId)) {
+            setFavourite(true);
+        }
+    },[])
 
     const sendMail = async () => {
         setLoading(true);
@@ -37,14 +43,41 @@ const AreaCard = (props) => {
         setPopupOpen(false);
     }
 
+    const handleAddWishlist = async () => {
+        setFavourite(!favourite);
+        const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+            method: "POST",
+            headers: {"content-type" : "application/json"},
+            body: JSON.stringify({
+                area : props.areaId
+            })
+        });
+        await fetchWishlist();
+        
+
+    }
+
+    const handleRemoveWishlist = async () => {
+        setFavourite(!favourite);
+        const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+            method: "DELETE",
+            headers: {"content-type" : "application/json"},
+            body: JSON.stringify({
+                area : props.areaId
+            })
+        });
+        await fetchWishlist();
+        
+    }
+
     return (
         <article className={`card ${popupOpen ? 'card-popup-open' : ''}`}>
             <div className="card-content">
                 <div className='img-icon'>
                 {favourite ? (
-                    <Favorite onClick={() => setFavourite(!favourite)} className="fav-icon fav-icon-full" />
+                    <Favorite onClick={() => handleRemoveWishlist()} className="fav-icon fav-icon-full" />
                 ) : (
-                    <Favorite onClick={() => setFavourite(!favourite)} className="fav-icon fav-icon-border" />
+                    <Favorite onClick={() => handleAddWishlist()} className="fav-icon fav-icon-border" />
                 )}
 
                 <img src={props.areaImg} alt='house-img' width="280px" height="300px"></img>

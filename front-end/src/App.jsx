@@ -11,10 +11,14 @@ import Tenant from './components/user-flow/Tenant';
 import Owner from './components/user-flow/Owner';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
+import WishList from './components/Wishlist/WishList';
+import useStartEffect from './CustomEffects/StartEffect';
 
 function App() {
   const { user } = useContext(RentifyContext);
   const location = useLocation();
+
+  useStartEffect("start");
 
   // Define the routes where Navbar should not be displayed
   const noNavbarRoutes = ['/register', '/login'];
@@ -32,6 +36,7 @@ function App() {
         {user && <>
           <Route path='/areaRegistration' Component={AreaRegistrationForm} />
           <Route path='/areaEdit' Component={AreaEdit} />
+          <Route path='/wishlist' Component={WishList} />
         </>}
       </Routes>
     </>

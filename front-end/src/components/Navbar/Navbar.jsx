@@ -60,8 +60,8 @@ const Navbar = () => {
             <li onClick={() => navigate("/rent")}>
                 Properties
             </li>
-            <li>
-                Interested Areas
+            <li onClick={() => navigate("/wishlist")}>
+                WishList
             </li>
             <li onClick={() => logout()}>
                 Log out

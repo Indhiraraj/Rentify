@@ -124,13 +124,14 @@ const AreaEdit = () => {
     console.log(formattedData);
     // Send data to the backend
     console.log(formDataToSend);
-    const response = await fetch("http://localhost:4000/area/edit", {
-      method: "POST",
+    const response = await fetch("http://localhost:4000/area", {
+      method: "PUT",
       body: formDataToSend,
     });
     if (response.ok) {
         navigate("/rent");
     } else {
+      console.log(response.body);
       setError("couldnt edit area,try later");
     }
     setLoading(false);
