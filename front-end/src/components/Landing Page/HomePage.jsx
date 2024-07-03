@@ -53,7 +53,7 @@ const HomePage = () => {
       <Categories/>
 
       <section className='hero' id='hero'>
-        <h1>Popular Properties</h1>
+        <h1 className='hero__h1'>Popular Properties</h1>
         <PopularProperties />
       </section>
     </div>

@@ -17,16 +17,20 @@
 
 .navbar .logo-container{
     width: 15%;
+    
     display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 0.25rem;
   text-decoration: none;
   cursor: pointer;
 }
 
+
+
 .logo-container p{
     font-size: 2.5vw;
+    
 }
 
 .navbar a:any-link{
@@ -35,6 +39,7 @@
 
 .navbar .rentify-logo{
     width: 20%;
+    min-width: 30px;
     height: auto;
 }
 
@@ -127,4 +132,18 @@
 .navbar-right-accountcontainer ul li:hover{
     color: var(--font-color);
     background: #ece9e9;
+}
+
+@media screen and (max-width: 576px){
+    .navbar .logo-container{
+        width: 25%;
+    }
+
+    .navbar .navbar-search{
+        display: none;
+    }
+
+    .logo-container p{
+        font-size: 5vw;
+    }
 }

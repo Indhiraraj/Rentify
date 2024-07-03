@@ -55,7 +55,7 @@ const Owner = () => {
       </button>
       {areas ? (
         <div className="areas-container">
-          <h3>Your Areas</h3>
+          <h3 className="areas-container__h3">Your Areas</h3>
           <div className="areas">
             {areas.map((area) => (
               <OwnerAreaCard

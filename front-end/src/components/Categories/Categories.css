@@ -75,3 +75,16 @@
     width: 80%;
     height: 80%;
 }
+
+@media screen and (max-width: 576px) {
+    .categories{
+        padding: 0.5rem;
+    }
+    .categories_p{
+        padding: 0.25rem;
+    }
+    
+    .categories p,.categories_p{
+        font-size: 1.2rem;
+    }
+}

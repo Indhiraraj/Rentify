@@ -25,6 +25,11 @@
   color: #ffffff;            /* Change this to the desired text color */
 }
 
+*:focus {
+  outline: none;
+}
+
+
 
 html{
   scroll-behavior: smooth;

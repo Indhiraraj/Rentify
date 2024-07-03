@@ -10,7 +10,10 @@
     scroll-margin-top: 16rem;
 }
 
-
+.areas-container__h3{
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
 
 .owner .add{
     position: relative;

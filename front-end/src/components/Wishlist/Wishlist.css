@@ -10,6 +10,7 @@
 }
 
 .wishlist_img{
+    max-width: 100%;
     align-self: center;
     justify-self: center;
 }

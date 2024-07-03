@@ -1,7 +1,18 @@
 .popular-properties{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill,
+    minmax(275px, 1fr));
+    gap: 1.25rem;
     padding: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+    .popular-properties{
+        grid-template-columns: repeat(auto-fill,
+        minmax(168px, 1fr));
+        gap: 1rem;
+        padding: 0;
+    }
+    
 }
