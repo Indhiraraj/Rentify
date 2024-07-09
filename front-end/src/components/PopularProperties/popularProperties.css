@@ -5,14 +5,6 @@
     minmax(275px, 1fr));
     gap: 1.25rem;
     padding: 1rem;
+    place-content: center;
 }
 
-@media screen and (max-width: 576px) {
-    .popular-properties{
-        grid-template-columns: repeat(auto-fill,
-        minmax(168px, 1fr));
-        gap: 1rem;
-        padding: 0;
-    }
-    
-}

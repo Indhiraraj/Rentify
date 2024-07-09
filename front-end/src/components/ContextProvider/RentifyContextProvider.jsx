@@ -15,7 +15,7 @@ const RentifyContextProvider = ({children}) => {
       })
 
       const [reviews,setReviews] = useState(null)
-      const [wishlist,setWishlist] = useState(null)
+      const [wishlist,setWishlist] = useState([])
       const [wishlistItems,setWishListItems] = useState([]);
 
       const fetchWishlistItems =  async() => {

@@ -13,6 +13,7 @@ import Navbar from './components/Navbar/Navbar';
 import './App.css';
 import WishList from './components/Wishlist/WishList';
 import useStartEffect from './CustomEffects/StartEffect';
+import CreateArea from './components/CreateAreas/CreateArea';
 
 function App() {
   const { user } = useContext(RentifyContext);
@@ -33,6 +34,7 @@ function App() {
         <Route path='/verification' Component={UserVerification} />
         <Route path='/buy' Component={Tenant} />
         <Route path='/rent' Component={Owner} />
+        <Route path='/postArea' Component={CreateArea} />
         {user && <>
           <Route path='/areaRegistration' Component={AreaRegistrationForm} />
           <Route path='/areaEdit' Component={AreaEdit} />

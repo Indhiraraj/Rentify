@@ -35,7 +35,7 @@ const Navbar = () => {
       </div>
 
       <div className='navbar-right'>
-        <p onClick={() => navigate("/rent")}>Rent</p>
+        <p onClick={() => navigate("/postArea")}>Rent</p>
       </div>
 <div className='navbar-right-accountcontainer'>
       <button className='navbar-right-account' onClick={() => setDropdown(!dropdown)}>

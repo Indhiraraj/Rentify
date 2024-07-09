@@ -11,9 +11,9 @@ const WishList = () => {
 
   return (
     <div className='wishlist'>
-     {wishlistItems.length > 0 ? <h1 className='wishlist_h1'>WishList</h1> : <h1 className='wishlist_h1'>No Wishlist Items found</h1>}
+     {wishlist.length > 0 ? <h1 className='wishlist_h1'>WishList</h1> : <h1 className='wishlist_h1'>No Wishlist Items found</h1>}
       {
-        wishlistItems.length == 0 && <img className='wishlist_img' src='empty-wishlist-3.png'></img>
+        wishlist.length == 0 && <img className='wishlist_img' src='empty-wishlist-3.png'></img>
       }
       
       {

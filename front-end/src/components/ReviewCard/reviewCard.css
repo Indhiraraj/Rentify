@@ -82,7 +82,10 @@
 
 @media screen and (max-width: 576px) {
     .review-card{
-        width: 250px;
+        margin-top: 5rem;
+        align-self: center;
+        justify-self: center;
+        width: 300px;
     }
     .review-card .review p{
         font-size: 0.8rem;
