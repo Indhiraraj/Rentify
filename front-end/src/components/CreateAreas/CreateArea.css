@@ -1,0 +1,12 @@
+
+
+.photo{
+    width: 300px;
+    display: inline-block;
+}
+
+.photo img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
