@@ -13,11 +13,11 @@ const CreateArea = () => {
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
     setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
-    console.log(photos);
+    // console.log(photos);
   };
 
   const handleDragPhoto = (result) => {
-    console.log(result);
+    // console.log(result);
     if (!result.destination) return;
     const items = Array.from(photos);
     const [reorderedItem] = items.slice(result.source.index, 1);
@@ -91,9 +91,9 @@ const CreateArea = () => {
             <div className="basic">
               <p>Guests</p>
               <div className="basic-count">
-                <RemoveCircleOutline sx={{ font: "inherit" }} />
+                <RemoveCircleOutline sx={{ font: "inherit"}} />
                 <p>1</p>
-                <AddCircleOutline sx={{ font: "inherit" }} />
+                <AddCircleOutline sx={{ font: "inherit"}} />
               </div>
             </div>
             <div className="basic">
@@ -142,6 +142,7 @@ const CreateArea = () => {
             <Droppable droppableId="photos" direction="horizontal">
               {(provided) => (
                 <div
+                
                   className="photos"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
@@ -246,6 +247,7 @@ const CreateArea = () => {
               required
             />
             <p>Now, set your PRICE</p>
+            <div className="price">
             <span>$</span>
             <input
               type="number"
@@ -254,9 +256,11 @@ const CreateArea = () => {
               className="price"
               required
             />
+            </div>
           </div>
         </div>
       </form>
+      <button className="submit-area-button">Post your Area</button>
     </div>
   );
 };
