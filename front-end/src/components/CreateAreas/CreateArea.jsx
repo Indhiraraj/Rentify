@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CreateArea.css";
 import { categories, facilities, types } from "../../Data/data";
-import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
+import { RemoveCircleOutline, AddCircleOutline, CategoryOutlined } from "@mui/icons-material";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IoIosImages } from "react-icons/io";
 import { BiTrash } from "react-icons/bi";
@@ -9,6 +9,62 @@ import { BiTrash } from "react-icons/bi";
 const CreateArea = () => {
   // UPLOAD, DRAG,REMOVE PHOTOS
   const [photos, setPhotos] = useState([]);
+  const [category,setCategory] = useState();
+  const [type,setType] = useState();
+  const [address,setAddress] = useState({
+    street_address : "",
+    city: "",
+    state: "",
+    country: ""
+  });
+  const [gbbb,setGbbb] = useState({
+    guests : 0,
+    bathrooms : 0,
+    bedrooms : 0,
+    beds : 0,
+  });
+  const [user_facilities,setUserFacilities] = useState([]);
+  const [area_details,setAreaDetails] = useState({
+    title : "",
+    description : "",
+    heighlight : "",
+    heighlight_details : "",
+    price : "",
+  })
+
+  const handleChangeCategory = (category) => {
+    setCategory(category);
+  }
+
+  const handleChangeType = (type) => {
+    setType(type);
+  }
+
+  const handleChangeAddress = (e) => {
+      const name = e.target.name;
+      setAddress(prevAddress => ({...prevAddress,name:e.target.value}));
+  }
+
+  const handleChangeGbbb = (name,value) => {
+      setGbbb(prevGbbb => ({...prevGbbb,name:value}));
+  }
+
+  const handleChangeFacilities = (facility) => {
+    let new_facilities;
+    if(user_facilities.includes(facility)){
+      new_facilities = user_facilities.filter(user_facility => user_facility != facility);
+    }
+    else{
+      new_facilities = [...user_facilities,facility];
+    }
+    
+    setUserFacilities(new_facilities);
+  }
+
+  const handleChangeDetails = (e) => {
+    const name = e.target.name;
+    setAreaDetails(prevDetails => ({...prevDetails,name:e.target.value}));
+  }
 
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
