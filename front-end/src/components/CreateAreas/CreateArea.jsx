@@ -1,70 +1,93 @@
 import React, { useState } from "react";
 import "./CreateArea.css";
 import { categories, facilities, types } from "../../Data/data";
-import { RemoveCircleOutline, AddCircleOutline, CategoryOutlined } from "@mui/icons-material";
+import {
+  RemoveCircleOutline,
+  AddCircleOutline,
+  CategoryOutlined,
+} from "@mui/icons-material";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IoIosImages } from "react-icons/io";
 import { BiTrash } from "react-icons/bi";
+import Modal from "../CustomModal/Modal";
 
 const CreateArea = () => {
-  // UPLOAD, DRAG,REMOVE PHOTOS
+  const [deletePhoto,setDeletePhoto] = useState(-1);
+  const [photoIndex,setPhotoIndex] = useState(0);
   const [photos, setPhotos] = useState([]);
-  const [category,setCategory] = useState();
-  const [type,setType] = useState();
-  const [address,setAddress] = useState({
-    street_address : "",
+  const [category, setCategory] = useState(-1);
+  const [type, setType] = useState(-1);
+  const [address, setAddress] = useState({
+    street_address: "",
     city: "",
     state: "",
-    country: ""
+    country: "",
   });
-  const [gbbb,setGbbb] = useState({
-    guests : 0,
-    bathrooms : 0,
-    bedrooms : 0,
-    beds : 0,
+  const [gbbb, setGbbb] = useState({
+    guests: 0,
+    bathrooms: 0,
+    bedrooms: 0,
+    beds: 0,
   });
-  const [user_facilities,setUserFacilities] = useState([]);
-  const [area_details,setAreaDetails] = useState({
-    title : "",
-    description : "",
-    heighlight : "",
-    heighlight_details : "",
-    price : "",
-  })
+  const [user_facilities, setUserFacilities] = useState([]);
+  const [area_details, setAreaDetails] = useState({
+    title: "",
+    description: "",
+    highlight: "",
+    highlight_details: "",
+    price: "",
+  });
+  const [showModal, setShowModal] = useState(false);
 
-  const handleChangeCategory = (category) => {
-    setCategory(category);
-  }
+  const OpenModal = (index) => {
+    setShowModal(true);
+    setPhotoIndex(index);
+  };
 
-  const handleChangeType = (type) => {
-    setType(type);
-  }
+  const CloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleChangeCategory = (index) => {
+    setCategory(index);
+  };
+
+  const handleChangeType = (index) => {
+    setType(index);
+    console.log(type);
+  };
 
   const handleChangeAddress = (e) => {
-      const name = e.target.name;
-      setAddress(prevAddress => ({...prevAddress,name:e.target.value}));
-  }
+    const name = e.target.name;
+    setAddress((prevAddress) => ({ ...prevAddress, [name]: e.target.value }));
+  };
 
-  const handleChangeGbbb = (name,value) => {
-      setGbbb(prevGbbb => ({...prevGbbb,name:value}));
-  }
+  const handleChangeGbbb = (name, value) => {
+    value = value < 0 ? 0 : value;
+    setGbbb((prevGbbb) => ({ ...prevGbbb, [name]: value }));
+  };
 
   const handleChangeFacilities = (facility) => {
     let new_facilities;
-    if(user_facilities.includes(facility)){
-      new_facilities = user_facilities.filter(user_facility => user_facility != facility);
+    if (user_facilities.includes(facility)) {
+      new_facilities = user_facilities.filter(
+        (user_facility) => user_facility != facility
+      );
+    } else {
+      new_facilities = [...user_facilities, facility];
     }
-    else{
-      new_facilities = [...user_facilities,facility];
-    }
-    
+
     setUserFacilities(new_facilities);
-  }
+    console.log(user_facilities);
+  };
 
   const handleChangeDetails = (e) => {
     const name = e.target.name;
-    setAreaDetails(prevDetails => ({...prevDetails,name:e.target.value}));
-  }
+    setAreaDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: e.target.value,
+    }));
+  };
 
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
@@ -82,11 +105,18 @@ const CreateArea = () => {
     setPhotos(items);
   };
 
-  const handleRemovePhoto = (indexToRemove) => {
-    setPhotos((prevPhotos) =>
-      prevPhotos.filter((_, index) => index != indexToRemove)
-    );
+  const handleRemovePhoto = (index) => {
+    CloseModal();
+    setDeletePhoto(index);
+    const newPhotos = [...photos];
+    newPhotos.splice(index, 1);
+    setTimeout(() => {
+      setPhotos(newPhotos);
+      setDeletePhoto(-1);
+    }, 400); // Match this with your CSS transition duration
   };
+
+
 
   return (
     <div className="post-area">
@@ -98,7 +128,15 @@ const CreateArea = () => {
           <h3>Which of the following categories best describes your place?</h3>
           <div className="category-list">
             {categories.map((item, index) => (
-              <div className="category" key={index}>
+              <div
+                className={
+                  !(index === category)
+                    ? "category category_hover"
+                    : "category clicked"
+                }
+                key={index}
+                onClick={() => handleChangeCategory(index)}
+              >
                 <div className="category-icon">{item.icon}</div>
                 <p>{item.label}</p>
               </div>
@@ -107,13 +145,23 @@ const CreateArea = () => {
 
           <h3>What type of place will tenants have?</h3>
           <div className="type-list">
-            {types.map((type, index) => (
-              <div className="type" key={index}>
+            {types.map((item, index) => (
+              <div
+                className="type"
+                key={index}
+                onClick={() => handleChangeType(index)}
+              >
                 <div className="type-text">
-                  <h4>{type.name}</h4>
-                  <p>{type.description}</p>
+                  <h4>{item.name}</h4>
+                  <p>{item.description}</p>
                 </div>
-                <div className="type-icon">{type.icon}</div>
+                <div
+                  className={
+                    index === type ? "type-icon clicked" : "type-icon hover"
+                  }
+                >
+                  {item.icon}
+                </div>
               </div>
             ))}
           </div>
@@ -124,21 +172,45 @@ const CreateArea = () => {
               <p>Street Address</p>
               <input
                 type="text"
+                name="street_address"
                 placeholder="Door No,Street Address"
+                value={address.street_address}
+                onChange={handleChangeAddress}
                 required
               />
             </div>
             <div className="location ct">
               <p>City</p>
-              <input type="text" placeholder="City" required />
+              <input
+                name="city"
+                type="text"
+                placeholder="City"
+                value={address.city}
+                required
+                onChange={handleChangeAddress}
+              />
             </div>
             <div className="location st">
               <p>State</p>
-              <input type="text" placeholder="State" required />
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={address.state}
+                required
+                onChange={handleChangeAddress}
+              />
             </div>
             <div className="location cy">
               <p>Country</p>
-              <input type="text" placeholder="Country" required />
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                value={address.country}
+                required
+                onChange={handleChangeAddress}
+              />
             </div>
           </div>
 
@@ -147,33 +219,61 @@ const CreateArea = () => {
             <div className="basic">
               <p>Guests</p>
               <div className="basic-count">
-                <RemoveCircleOutline sx={{ font: "inherit"}} />
-                <p>1</p>
-                <AddCircleOutline sx={{ font: "inherit"}} />
+                <RemoveCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("guests", gbbb.guests - 1)}
+                />
+                <p>{gbbb.guests}</p>
+                <AddCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("guests", gbbb.guests + 1)}
+                />
               </div>
             </div>
             <div className="basic">
               <p>Bedrooms</p>
               <div className="basic-count">
-                <RemoveCircleOutline sx={{ font: "inherit" }} />
-                <p>1</p>
-                <AddCircleOutline sx={{ font: "inherit" }} />
+                <RemoveCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() =>
+                    handleChangeGbbb("bedrooms", gbbb.bedrooms - 1)
+                  }
+                />
+                <p>{gbbb.bedrooms}</p>
+                <AddCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() =>
+                    handleChangeGbbb("bedrooms", gbbb.bedrooms + 1)
+                  }
+                />
               </div>
             </div>
             <div className="basic">
               <p>Beds</p>
               <div className="basic-count">
-                <RemoveCircleOutline sx={{ font: "inherit" }} />
-                <p>1</p>
-                <AddCircleOutline sx={{ font: "inherit" }} />
+                <RemoveCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("beds", gbbb.beds - 1)}
+                />
+                <p>{gbbb.beds}</p>
+                <AddCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("beds", gbbb.beds + 1)}
+                />
               </div>
             </div>
             <div className="basic">
               <p>Bathrooms</p>
               <div className="basic-count">
-                <RemoveCircleOutline sx={{ font: "inherit" }} />
-                <p>1</p>
-                <AddCircleOutline sx={{ font: "inherit" }} />
+                <RemoveCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("guests", gbbb.bathrooms - 1)}
+                />
+                <p>{gbbb.bathrooms}</p>
+                <AddCircleOutline
+                  sx={{ font: "inherit" }}
+                  onClick={() => handleChangeGbbb("guests", gbbb.bathrooms + 1)}
+                />
               </div>
             </div>
           </div>
@@ -186,7 +286,15 @@ const CreateArea = () => {
           <h3>Tell guests what your place has to offer</h3>
           <div className="facilities">
             {facilities.map((item, index) => (
-              <div className="facility" key={index}>
+              <div
+                className={
+                  user_facilities.includes(index)
+                    ? "facility clicked"
+                    : "facility"
+                }
+                key={index}
+                onClick={() => handleChangeFacilities(index)}
+              >
                 <div className="facility_icon">{item.icon}</div>
                 <p>{item.label}</p>
               </div>
@@ -198,7 +306,6 @@ const CreateArea = () => {
             <Droppable droppableId="photos" direction="horizontal">
               {(provided) => (
                 <div
-                
                   className="photos"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
@@ -233,7 +340,7 @@ const CreateArea = () => {
                           >
                             {(provided) => (
                               <div
-                                className="photo"
+                                className={deletePhoto == index ? "delete_photo photo" : "photo"}
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
@@ -244,7 +351,7 @@ const CreateArea = () => {
                                 />
                                 <button
                                   type="button"
-                                  onClick={() => handleRemovePhoto(index)}
+                                  onClick={() => OpenModal(index)}
                                 >
                                   <BiTrash />
                                 </button>
@@ -286,6 +393,8 @@ const CreateArea = () => {
               type="text"
               placeholder="Description"
               name="description"
+              value={area_details.description}
+              onChange={handleChangeDetails}
               required
             />
             <p>Highlight</p>
@@ -293,30 +402,42 @@ const CreateArea = () => {
               type="text"
               placeholder="Highlight"
               name="highlight"
+              value={area_details.highlight}
+              onChange={handleChangeDetails}
               required
             />
             <p>Highlight details</p>
             <textarea
               type="text"
               placeholder="Highlight details"
-              name="highlightDetails"
+              name="highlight_details"
+              value={area_details.highlight_details}
+              onChange={handleChangeDetails}
               required
             />
             <p>Now, set your PRICE</p>
             <div className="price">
-            <span>$</span>
-            <input
-              type="number"
-              placeholder="100"
-              name="price"
-              className="price"
-              required
-            />
+              <span>$</span>
+              <input
+                type="number"
+                placeholder="100"
+                name="price"
+                value={area_details.price}
+                onChange={handleChangeDetails}
+                className="price"
+                required
+              />
             </div>
           </div>
         </div>
       </form>
       <button className="submit-area-button">Post your Area</button>
+      
+      <Modal show={showModal} onClose={CloseModal}>
+        <p>Are you sure to delete the photo?</p>
+        <button onClick={()=>handleRemovePhoto(photoIndex)}>delete</button>
+      </Modal>
+    
     </div>
   );
 };

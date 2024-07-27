@@ -102,6 +102,7 @@
 
 .post-area__step1 .type .type-icon{
     padding-right: 1em;
+    transition: all 0.2s ease-in-out;
 }
 
 .post-area__step1 .type:hover{
@@ -218,6 +219,7 @@
     border-radius: 12px;
     height: 100%;
     object-fit: cover;
+    padding: 0.25em;
 }
 
 .post-area .submit-area-button{
@@ -238,8 +240,19 @@
 
 }
 
+.post-area .photos{
+    display: flex;
+    transition: all 0.2s ease-in-out;
+}
+
+                       
 .post-area .photos label{
     width: 250px;
+    display: block;
+}
+
+.post-area .photos label p{
+    pointer-events: none;
 }
 
 .post-area .photos label .icon{
@@ -254,7 +267,15 @@
     align-items: center;
 }
 
-.post-area .photos label p{
-    width: 250px;
+.post-area .clicked{
+    color: var(--font-color);
 }
+
+.post-area .delete_photo{
+    scale: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+
+
 

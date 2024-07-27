@@ -33,7 +33,7 @@ const RentifyContextProvider = ({children}) => {
       const fetchWishlist = async () => {
         const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`);
         const data = await response.json();
-        console.log(data.wishlist.areas);
+        // console.log(data.wishlist.areas);
         setWishlist(data.wishlist.areas);
         
       }
