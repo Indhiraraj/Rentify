@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./CreateArea.css";
 import { categories, facilities, types } from "../../Data/data";
 import {
@@ -10,10 +10,16 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IoIosImages } from "react-icons/io";
 import { BiTrash } from "react-icons/bi";
 import Modal from "../CustomModal/Modal";
+import { useNavigate } from "react-router";
+import { getImageLink } from "../FirebaseService/firebaseService";
+import { RentifyContext } from "../ContextProvider/RentifyContextProvider";
 
 const CreateArea = () => {
-  const [deletePhoto,setDeletePhoto] = useState(-1);
-  const [photoIndex,setPhotoIndex] = useState(0);
+  const { user } = useContext(RentifyContext);
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [deletePhoto, setDeletePhoto] = useState(-1);
+  const [photoIndex, setPhotoIndex] = useState(0);
   const [photos, setPhotos] = useState([]);
   const [category, setCategory] = useState(-1);
   const [type, setType] = useState(-1);
@@ -83,6 +89,7 @@ const CreateArea = () => {
 
   const handleChangeDetails = (e) => {
     const name = e.target.name;
+   
     setAreaDetails((prevDetails) => ({
       ...prevDetails,
       [name]: e.target.value,
@@ -92,7 +99,7 @@ const CreateArea = () => {
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
     setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
-    // console.log(photos);
+    console.log(photos);
   };
 
   const handleDragPhoto = (result) => {
@@ -116,7 +123,80 @@ const CreateArea = () => {
     }, 400); // Match this with your CSS transition duration
   };
 
+  const handlePostArea = async () => {
+    if (category === -1) {
+      setError("select category");
+      return;
+    }
+    if (type === -1) {
+      setError("select type");
+      return;
+    }
+    if (gbbb.bathrooms === 0 || gbbb.bedrooms === 0 || gbbb.beds === 0) {
+      setError("set your place details(bathrooms,bedrooms,beds) properly");
+      return;
+    }
+    if (user_facilities.length === 0) {
+      setError("set facilities of your property");
+      return;
+    }
+    if (
+      address.city === "" ||
+      address.country === "" ||
+      address.state === "" ||
+      address.street_address === ""
+    ) {
+      setError("set your address correctly");
+      return;
+    }
+    if (
+      area_details.description === "" ||
+      area_details.highlight === "" ||
+      area_details.highlight_details === "" ||
+      area_details.price === "" ||
+      area_details.title === ""
+    ) {
+      setError("set your area details(description and highlights) correctly");
+      return;
+    }
 
+    if (photos.length === 0) {
+      setError("upload your area images");
+      return;
+    }
+
+    let photoLinks = await Promise.all(
+      photos.map(async (photo) => {
+        console.log("test");
+        return await getImageLink(user.userId, photo.name, photo);
+      })
+    );
+
+    let upload_facilities = user_facilities.map((item) => {
+      return facilities[item].label;
+    })
+    const data = {
+      category: categories[category].label,
+      type: types[type].name,
+      gbbb,
+      user_facilities: upload_facilities,
+      address,
+      area_details,
+      images: [...photoLinks]
+    };
+    // console.log(data);
+    setError("loading");
+    const response = await fetch("http://localhost:4000/area", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      navigate("/rent");
+    } else {
+      setError("couldnt upload area,try later");
+    }
+    setError(null);
+  };
 
   return (
     <div className="post-area">
@@ -267,12 +347,16 @@ const CreateArea = () => {
               <div className="basic-count">
                 <RemoveCircleOutline
                   sx={{ font: "inherit" }}
-                  onClick={() => handleChangeGbbb("guests", gbbb.bathrooms - 1)}
+                  onClick={() =>
+                    handleChangeGbbb("bathrooms", gbbb.bathrooms - 1)
+                  }
                 />
                 <p>{gbbb.bathrooms}</p>
                 <AddCircleOutline
                   sx={{ font: "inherit" }}
-                  onClick={() => handleChangeGbbb("guests", gbbb.bathrooms + 1)}
+                  onClick={() =>
+                    handleChangeGbbb("bathrooms", gbbb.bathrooms + 1)
+                  }
                 />
               </div>
             </div>
@@ -340,7 +424,11 @@ const CreateArea = () => {
                           >
                             {(provided) => (
                               <div
-                                className={deletePhoto == index ? "delete_photo photo" : "photo"}
+                                className={
+                                  deletePhoto == index
+                                    ? "delete_photo photo"
+                                    : "photo"
+                                }
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
@@ -387,7 +475,14 @@ const CreateArea = () => {
           <h3>What make your place attractive and exiting?</h3>
           <div className="description">
             <p>Title</p>
-            <input type="text" placeholder="Title" name="title" required />
+            <input
+              type="text"
+              placeholder="Title"
+              name="title"
+              value={area_details.title}
+              onChange={handleChangeDetails}
+              required
+            />
             <p>Description</p>
             <textarea
               type="text"
@@ -431,13 +526,15 @@ const CreateArea = () => {
           </div>
         </div>
       </form>
-      <button className="submit-area-button">Post your Area</button>
-      
+
+      <button onClick={handlePostArea} className="submit-area-button">
+        Post your Area
+      </button>
+      {error && <p className="error">{error}</p>}
       <Modal show={showModal} onClose={CloseModal}>
         <p>Are you sure to delete the photo?</p>
-        <button onClick={()=>handleRemovePhoto(photoIndex)}>delete</button>
+        <button onClick={() => handleRemovePhoto(photoIndex)}>delete</button>
       </Modal>
-    
     </div>
   );
 };
