@@ -4,8 +4,6 @@ import cors from "cors";
 import nodemailer from "nodemailer";
 import bcrypt from "bcryptjs";
 import { MongoClient, ServerApiVersion } from "mongodb";
-import { getImageLink } from "./firebase.js";
-import multer from "multer";
 
 //----------------------------------------------DATABASE CONFIGURATION-----------------------------------------------//
 
@@ -36,17 +34,7 @@ const app = express();
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
-  },
-});
 
-const upload = multer({ storage: storage });
 
 const corsOptions = {
   origin: "*",
@@ -99,24 +87,7 @@ const sendVerificationEmail = async (verification) => {
 };
 
 
-const formatData = (area) => {
-  const formattedData = {
-    ...area,
-    facilities: area.facilities.split(",").map((item) => item.trim()),
-    publicTransport: area.publicTransport
-      .split(",")
-      .map((item) => item.trim()),
-    securityFeatures: area.securityFeatures
-      .split(",")
-      .map((item) => item.trim()),
-    greenSpaces: area.greenSpaces.split(",").map((item) => item.trim()),
-    internetProviders: area.internetProviders
-      .split(",")
-      .map((item) => item.trim()),
-  };
 
-  return formattedData;
-}
 
 const sendOwnerData = async (userEmail,ownerDetails) => {
   let transporter = nodemailer.createTransport({
@@ -279,49 +250,46 @@ app.delete("/area/remove/:areaId", async (req, res) => {
   }
 });
 
-app.put("/area", upload.single("areaImg"), async (req, res) => {
-  try {
-    let area = req.body;
+// app.put("/area", async (req, res) => {
+//   try {
+//     let area = req.body;
    
-    const area_collection = db.collection("areas");
-    const filter = { areaId: area.areaId };
-    if (req.file) {
-      let imageLink = await getImageLink(
-        area.ownerId,
-        area.name,
-        req.file.path
-      );
+//     const area_collection = db.collection("areas");
+//     const filter = { areaId: area.areaId };
+//     if (req.file) {
+//       let imageLink = await getImageLink(
+//         area.ownerId,
+//         area.name,
+//         req.file.path
+//       );
 
-      area = {
-        $set: formatData(area),
-      };
-    } else {
-      let {areaImg,...Area} = area;
+//       area = {
+//         $set: formatData(area),
+//       };
+//     } else {
+//       let {areaImg,...Area} = area;
      
-      area = {
-        $set: formatData(Area),
-      };
-    }
-    // console.log(area);
-    await area_collection.updateOne(filter, area);
+//       area = {
+//         $set: formatData(Area),
+//       };
+//     }
+//     // console.log(area);
+//     await area_collection.updateOne(filter, area);
     
-    res.status(200).json({ message: "Success" });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: "Error, couldn't upload area" });
-  }
-});
+//     res.status(200).json({ message: "Success" });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({ message: "Error, couldn't upload area" });
+//   }
+// });
 
-app.post("/area", upload.single("areaImg"), async (req, res) => {
+app.post("/area",  async (req, res) => {
   try {
     let area = req.body;
-
-    let imageLink = await getImageLink(area.ownerId, area.name, req.file.path);
     const area_collection = db.collection("areas");
+    area = { ...area, areaId: crypto.randomUUID() };
     
-    area = { ...area, img: imageLink, areaId: crypto.randomUUID() };
-    
-    await area_collection.insertOne(formatData(area));
+    await area_collection.insertOne(area);
     res.status(200).json({ message: "Success" });
   } catch (error) {
     console.log(error.message);
