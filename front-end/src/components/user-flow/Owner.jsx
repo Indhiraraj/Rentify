@@ -60,8 +60,8 @@ const Owner = () => {
             {areas.map((area) => (
               <OwnerAreaCard
                 key={area.areaId}
-                area={area}
-                removeArea={handleRemoveArea}
+                area={{...area,removeArea:handleRemoveArea}}
+                // props={handleRemoveArea}
               />
             ))}
           </div>

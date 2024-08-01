@@ -9,7 +9,7 @@ const OwnerAreaCard = ({area}) => {
 
   const handleRemoveArea = async () => {
     const response = await fetch(
-      `http://localhost:4000/api/area/remove/${area.areaId}`,{
+      `http://localhost:4000/api/areas/remove/${area.areaId}`,{
         method: "DELETE"
       }
     );
@@ -17,7 +17,12 @@ const OwnerAreaCard = ({area}) => {
     const data = await response.json();
 
     if (data.message === "success") {
+      // navigate("/");
+      // console.log(area);
+      // console.log(props);
+      // props(area.areaId);
       area.removeArea(area.areaId);
+      // area.(area.areaId);
     }
   };
 

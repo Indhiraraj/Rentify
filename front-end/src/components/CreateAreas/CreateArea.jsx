@@ -182,11 +182,12 @@ const CreateArea = () => {
       user_facilities: upload_facilities,
       address,
       area_details,
-      images: [...photoLinks]
+      images: [...photoLinks],
+      ownerId: user.userId
     };
     // console.log(data);
     setError("loading");
-    const response = await fetch("http://localhost:4000/api/area", {
+    const response = await fetch("http://localhost:4000/api/areas/area", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
