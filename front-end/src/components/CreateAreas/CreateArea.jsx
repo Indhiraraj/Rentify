@@ -186,8 +186,9 @@ const CreateArea = () => {
     };
     // console.log(data);
     setError("loading");
-    const response = await fetch("http://localhost:4000/area", {
+    const response = await fetch("http://localhost:4000/api/area", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     if (response.ok) {
@@ -512,7 +513,7 @@ const CreateArea = () => {
             />
             <p>Now, set your PRICE</p>
             <div className="price">
-              <span>$</span>
+              <span>&#8377;</span>
               <input
                 type="number"
                 placeholder="100"

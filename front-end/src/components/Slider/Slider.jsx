@@ -3,6 +3,8 @@ import ReviewCard from '../ReviewCard/ReviewCard';
 import { RentifyContext } from '../ContextProvider/RentifyContextProvider';
 import "./Slider.css";
 
+import { IoIosArrowDropright,IoIosArrowDropleft } from "react-icons/io";
+
 const Slider = () => {
   const { reviews } = useContext(RentifyContext);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +30,7 @@ const Slider = () => {
 
   return (
     <div className='slider'>
-      <div onClick={handlePrevious} className='left-arrow'>˂</div>
+      <div onClick={handlePrevious} className='left-arrow'><IoIosArrowDropleft /></div>
       <div className={animationClass}>
         <ReviewCard 
           key={currentIndex} 
@@ -36,7 +38,7 @@ const Slider = () => {
           review={reviews[currentIndex].review} 
         />
       </div>
-      <div onClick={handleNext} className='right-arrow'>˃</div>
+      <div onClick={handleNext} className='right-arrow'><IoIosArrowDropright /></div>
     </div>
   );
 };

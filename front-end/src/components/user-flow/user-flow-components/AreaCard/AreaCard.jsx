@@ -2,30 +2,39 @@ import React, { useContext, useEffect, useState } from 'react';
 import './card.css';
 import { Star, Favorite } from "@mui/icons-material";
 import { RentifyContext } from '../../../ContextProvider/RentifyContextProvider';
+import Modal from '../../../CustomModal/Modal';
+import { useNavigate } from 'react-router';
 
 
 
-const AreaCard = (props) => {
+const AreaCard = ({area}) => {
+    const navigate = useNavigate()
     const [favourite, setFavourite] = useState(false);
     const [loading, setLoading] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [ownerDetails, setOwnerDetails] = useState(null);
     const { user,fetchWishlist,wishlist } = useContext(RentifyContext);
+    const [showModal,setShowModal] = useState(false);
 
     useEffect(()=>{
-        if (wishlist.includes(props.areaId)) {
+        if (wishlist.includes(area.areaId)) {
             setFavourite(true);
         }
     },[])
 
     const sendMail = async () => {
+        if(!user){
+            setShowModal(true);
+            return;
+        }
         setLoading(true);
-        const response = await fetch("http://localhost:4000/sendMail", {
+        
+        const response = await fetch("http://localhost:4000/api/sendMail", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
                 userMail: user.email,
-                ownerId: props.ownerId
+                ownerId: area.ownerId
             })
         });
 
@@ -39,17 +48,21 @@ const AreaCard = (props) => {
         setLoading(false);
     }
 
+    const closeModal = () => {
+        setShowModal(false);
+    }
+
     const closePopup = () => {
         setPopupOpen(false);
     }
 
     const handleAddWishlist = async () => {
         setFavourite(!favourite);
-        const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+        const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
             method: "POST",
             headers: {"content-type" : "application/json"},
             body: JSON.stringify({
-                area : props.areaId
+                area : area.areaId
             })
         });
         await fetchWishlist();
@@ -59,11 +72,11 @@ const AreaCard = (props) => {
 
     const handleRemoveWishlist = async () => {
         setFavourite(!favourite);
-        const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+        const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
             method: "DELETE",
             headers: {"content-type" : "application/json"},
             body: JSON.stringify({
-                area : props.areaId
+                area : area.areaId
             })
         });
         await fetchWishlist();
@@ -80,20 +93,20 @@ const AreaCard = (props) => {
                     <Favorite onClick={() => handleAddWishlist()} className="fav-icon fav-icon-border" />
                 )}
 
-                <img src={props.areaImg} alt='house-img' width="280px" height="300px"></img>
+                <img src={area.images[0]} alt='house-img' width="280px" height="300px" loading='lazy'></img>
                 </div>
                 
-                <h2 className='areaName'>{props.areaName}</h2>
-                <h5>{props.address}</h5>
-                {props.price ? (
+                <h2 className='areaName'>{area.area_details.title}</h2>
+                <h5>{area.address.city}</h5>
+                {area.area_details.price ? (
                     <div className="price-rating">
-                        <p>{props.price}</p>
-                        {props.ratings && <p><Star fontSize='inherit'/>{props.ratings}</p>}
+                        <p>&#8377;{area.area_details.price}</p>
+                        {area.ratings && <p><Star fontSize='inherit'/>{area.ratings}</p>}
                     </div>
                 ) : (
                     <div className="price-rating">
                         <p>Negotiable</p>
-                        {props.ratings && <p><Star fontSize='inherit'/>{props.ratings}</p>}
+                        {area.ratings && <p><Star fontSize='inherit'/>{area.ratings}</p>}
                     </div>
                 )}
                 <div className='bottom'>
@@ -113,6 +126,11 @@ const AreaCard = (props) => {
                     </div>
                 </div>
             }
+
+            <Modal show={showModal} onClose={closeModal}>
+            <p>Login to get owner details</p>
+            <button onClick={()=>navigate("/login")}>Login</button>
+            </Modal>
         </article>
     )
 }

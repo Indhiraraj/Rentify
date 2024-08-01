@@ -13,12 +13,12 @@ const WishList = () => {
     <div className='wishlist'>
      {wishlist.length > 0 ? <h1 className='wishlist_h1'>WishList</h1> : <h1 className='wishlist_h1'>No Wishlist Items found</h1>}
       {
-        wishlist.length == 0 && <img className='wishlist_img' src='empty-wishlist-3.png'></img>
+        wishlist.length == 0 && <img className='wishlist_img' src='empty-wishlist-2.png'></img>
       }
       
       {
         wishlistItems.length > 0 && <div className='wishlist_container'> {wishlistItems.map((area,index) => (
-            <WishListCard ratings={area.ratings?.averageRating} areaId = {area.areaId} address={area.address} areaName={area.name} areaImg={area.img} price={area.priceRange} iswishlistItem={area.iswishlistItem} key={index} />
+            <WishListCard area={area} key={index} />
         ))
       }
       </div>

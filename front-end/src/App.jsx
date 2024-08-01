@@ -36,7 +36,6 @@ function App() {
         <Route path='/rent' Component={Owner} />
         <Route path='/postArea' Component={CreateArea} />
         {user && <>
-          <Route path='/areaRegistration' Component={AreaRegistrationForm} />
           <Route path='/areaEdit' Component={AreaEdit} />
           <Route path='/wishlist' Component={WishList} />
         </>}

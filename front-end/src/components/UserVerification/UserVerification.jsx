@@ -17,7 +17,7 @@ const UserVerification = () => {
             setLoading(false)
         }
         else{
-            const response = await fetch("http://localhost:4000/verify",{
+            const response = await fetch("http://localhost:4000/api/verification/verify",{
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
@@ -51,7 +51,7 @@ const UserVerification = () => {
     const handleRetry = async() => {
         setLoading(true)
         try {
-            await fetch(`http://localhost:4000/retry/${formData.email}`)
+            await fetch(`http://localhost:4000/api/verification/retry/${formData.email}`)
             setError("verification code has been sent again")
         } catch (error) {
             setError("error try again some other time")

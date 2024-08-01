@@ -3,12 +3,12 @@ import "./propertyCard.css";
 import { Star, Favorite } from "@mui/icons-material";
 import { RentifyContext } from "../../ContextProvider/RentifyContextProvider";
 
-const PropertyCard = (props) => {
+const PropertyCard = ({area}) => {
   const [favourite, setFavourite] = useState(false);
   const {user,wishlist,fetchWishlist} = useContext(RentifyContext);
 
   useEffect(() => {
-    if ( wishlist && wishlist.includes(props.areaId)) {
+    if ( wishlist && wishlist.includes(area.areaId)) {
       setFavourite(true)
     }
   },[wishlist])
@@ -17,11 +17,11 @@ const PropertyCard = (props) => {
 
   const handleAddWishlist = async () => {
     setFavourite(!favourite);
-    const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+    const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
         method: "POST",
         headers: {"content-type" : "application/json"},
         body: JSON.stringify({
-            area : props.areaId
+            area : area.areaId
         })
     });
     await fetchWishlist();
@@ -30,11 +30,11 @@ const PropertyCard = (props) => {
 
 const handleRemoveWishlist = async () => {
     setFavourite(!favourite);
-    const response = await fetch(`http://localhost:4000/wishlist/${user.userId}`,{
+    const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
         method: "DELETE",
         headers: {"content-type" : "application/json"},
         body: JSON.stringify({
-            area : props.areaId
+            area : area.areaId
         })
     });
     await fetchWishlist();
@@ -48,15 +48,15 @@ const handleRemoveWishlist = async () => {
         ) : (
           <Favorite onClick={() => handleAddWishlist()} className="fav-icon fav-icon-border" />
         )}
-        <img src={props.areaImg} alt={props.areaName} />
+        <img src={area.images[0]} alt="img" />
       </div>
 
-      <h3>{props.areaName}</h3>
-      <h5>{props.address}</h5>
-      {props.price ? (
+      <h3>{area.address.city}</h3>
+      <h5>{area.address.state}</h5>
+      {area.area_details.price ? (
         <div className="price-rating">
-          <p>{props.price}</p>
-          {props.ratings && (
+          <p>&#8377;{area.area_details.price}</p>
+          {area.ratings && (
             <p>
               <Star fontSize="inherit" />
               {props.ratings}
@@ -66,10 +66,10 @@ const handleRemoveWishlist = async () => {
       ) : (
         <div className="price-rating">
           <p>Negotiable</p>
-          {props.ratings && (
+          {area.ratings && (
             <p>
               <Star fontSize="inherit" />
-              {props.ratings}
+              {area.ratings}
             </p>
           )}
         </div>

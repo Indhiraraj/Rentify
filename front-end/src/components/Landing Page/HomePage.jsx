@@ -14,7 +14,7 @@ const HomePage = () => {
     const fetchReviews = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:4000/user-reviews");
+        const response = await fetch("http://localhost:4000/api/user-reviews");
         if (response.ok) {
           const data = await response.json();
           // console.log(data.reviews);

@@ -21,7 +21,7 @@ const Owner = () => {
   useEffect(() => {
     const getAreas = async () => {
       const response = await fetch(
-        `http://localhost:4000/user/${user.userId}/areas`
+        `http://localhost:4000/api/areas/user/${user.userId}`
       );
 
       if (response.ok) {
@@ -41,7 +41,7 @@ const Owner = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/areaRegistration");
+    navigate("/postArea");
   };
 
   const handleRemoveArea = (areaId) => {
@@ -60,10 +60,7 @@ const Owner = () => {
             {areas.map((area) => (
               <OwnerAreaCard
                 key={area.areaId}
-                areaName={area.name}
-                areaImg={area.img}
-                ownerId={area.ownerId}
-                areaId={area.areaId}
+                area={area}
                 removeArea={handleRemoveArea}
               />
             ))}

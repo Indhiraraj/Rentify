@@ -11,7 +11,7 @@ const Tenant = () => {
   useEffect(() => {
     const fetchAreas = async () => {
       try {
-        const response = await fetch("http://localhost:4000/areas");
+        const response = await fetch("http://localhost:4000/api/areas");
         if (response.ok) {
           const data = await response.json();
           setAreas(data.areas);
@@ -33,13 +33,7 @@ const Tenant = () => {
           {areas.map((area) => (
             <AreaCard
               key={area.areaId}
-              areaName={area.name}
-              areaImg={area.img}
-              ownerId={area.ownerId}
-              areaId={area.areaId}
-              ratings={area.ratings?.averageRating}
-              address={area.address}
-              price={area.priceRange}
+              area={area}
             />
           ))}
         </div>

@@ -32,7 +32,7 @@ const AreaEdit = () => {
   useEffect(() => {
     const getArea = async () => {
       if (areaId) {
-        const response = await fetch(`http://localhost:4000/areas/${areaId}`);
+        const response = await fetch(`http://localhost:4000/api/areas/${areaId}`);
 
         if (response.ok) {
           const data = await response.json();

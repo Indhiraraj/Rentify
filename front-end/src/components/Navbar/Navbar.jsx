@@ -4,11 +4,21 @@ import { Search,Person,Menu } from "@mui/icons-material"
 import { RentifyContext } from '../ContextProvider/RentifyContextProvider'
 import "./Navbar.css"
 import { useNavigate } from 'react-router'
+import Modal from '../CustomModal/Modal'
 
 const Navbar = () => {
     const {user,logout} = useContext(RentifyContext);
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [dropdown,setDropdown] = useState(false);
+    const OpenModal = (index) => {
+      setShowModal(true);
+      setPhotoIndex(index);
+    };
+  
+    const CloseModal = () => {
+      setShowModal(false);
+    };
   return (
     <div className='navbar'>
       <a className='logo-container' onClick={() => navigate("/")}>
@@ -35,12 +45,18 @@ const Navbar = () => {
       </div>
 
       <div className='navbar-right'>
+      {user ? 
         <p onClick={() => navigate("/postArea")}>Rent</p>
+        :
+        <p onClick={() => {
+          setShowModal(true);
+        }}>Rent</p>}
+        
       </div>
 <div className='navbar-right-accountcontainer'>
       <button className='navbar-right-account' onClick={() => setDropdown(!dropdown)}>
         <Menu sx={{color:"#333"}}/>
-        <Person sx={{color:"#333"}}/>
+        {/* <Person sx={{color:"#333"}}/> */}
       </button>
 
     {dropdown && !user && (
@@ -60,7 +76,7 @@ const Navbar = () => {
             <li onClick={() => navigate("/rent")}>
                 Properties
             </li>
-            <li onClick={() => navigate("/wishlist")}>
+            <li onClick={() => {navigate("/wishlist")}}>
                 WishList
             </li>
             <li onClick={() => logout()}>
@@ -69,6 +85,11 @@ const Navbar = () => {
         </ul>
     )}
 </div>
+
+<Modal show={showModal} onClose={CloseModal}>
+        <p>Login to post your property...</p>
+        <button onClick={() => navigate("/login")}>login</button>
+      </Modal>
     </div>
   )
 }

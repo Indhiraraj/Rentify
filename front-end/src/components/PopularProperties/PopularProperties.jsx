@@ -9,7 +9,7 @@ const PopularProperties = () => {
     useEffect(() => {
       const fetchAreas = async () => {
         try {
-          const response = await fetch("http://localhost:4000/areas");
+          const response = await fetch("http://localhost:4000/api/areas");
           if (response.ok) {
             const data = await response.json();
 
@@ -27,7 +27,7 @@ const PopularProperties = () => {
   return (
     <div className='popular-properties'>
       {areas && areas.map((area, index) => (
-        <PropertyCard ratings={area.ratings?.averageRating} areaId = {area.areaId} address={area.address} areaName={area.name} areaImg={area.img} price={area.priceRange} key={index} />
+        <PropertyCard area = {area} key={index} />
       ))}
     </div>
   );
