@@ -27,7 +27,10 @@
 }
 
 @media screen and (max-width: 576px) {
-    .left-arrow,.right-arrow{
+    .slider .right-arrow{
+        display: none;
+    }
+    .slider .left-arrow{
         display: none;
     }
     

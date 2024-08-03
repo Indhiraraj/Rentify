@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./tenant.css";
 import AreaCard from "./user-flow-components/AreaCard/AreaCard";
-import Navbar from "../Navbar/Navbar";
+import { useNavigate } from "react-router";
 
 
 
 const Tenant = () => {
   const [areas, setAreas] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAreas = async () => {

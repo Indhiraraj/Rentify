@@ -1,0 +1,90 @@
+.area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 90%;
+    margin: auto;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.area-container{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.area-container img{
+    width: 100%;
+    min-width: 380px;
+    max-width: 500px;
+    height: 100vh;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.area-container .area-description{
+    width: 30%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+.area-container .interested-button{
+    width: 250px;
+    background-color: #c04ddd;
+    background: linear-gradient(to right,var(--font-color),var(--secondary-color));
+    color: var(--white_color);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+}
+
+.area-container .interested-button:hover{
+    filter: brightness(115%);
+
+}
+
+.area-facilities{
+    padding-top: 1rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.area-facilities-container{
+    width: 100%;
+    display: grid;
+    padding-top: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    max-width: 500px;
+    gap: 0.5rem;
+}
+
+.area-facilities .facility{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: start;
+    align-items: center;
+    font-size: large;
+    color: #333;
+}
+
+.facility .facility_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

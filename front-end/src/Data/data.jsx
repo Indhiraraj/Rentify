@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowDownUpAcrossLine, FaBicycle, FaBolt, FaBox, FaBriefcase, FaBuilding, FaCampground, FaCar, FaChild, FaCity, FaCube, FaDoorOpen, FaDumbbell, FaFilm, FaFire, FaGamepad, FaHandsPraying, FaHotTubPerson, FaHouse, FaHouseUser, FaKitMedical, FaLaptop, FaLayerGroup, FaLeaf, FaPaw, FaPeopleRoof, FaPersonSwimming, FaRecycle, FaShield, FaShirt, FaSnowflake, FaSquareParking, FaTableTennisPaddleBall, FaTv, FaUmbrella, FaUser, FaUserTie, FaVideo, FaWarehouse, FaWater, FaWheelchair, FaWifi } from "react-icons/fa6";
+import { FaArrowDownUpAcrossLine, FaBicycle, FaBolt, FaBox, FaBriefcase, FaBuilding, FaCampground, FaCar, FaChild, FaCity, FaCube, FaDoorOpen, FaDumbbell, FaFilm, FaFire, FaGamepad, FaHandsPraying, FaHospital, FaHotTubPerson, FaHouse, FaHouseUser, FaKitMedical, FaLaptop, FaLayerGroup, FaLeaf, FaPaw, FaPeopleRoof, FaPersonSwimming, FaRecycle, FaShield, FaShirt, FaSnowflake, FaSquareParking, FaTableTennisPaddleBall, FaTv, FaUmbrella, FaUser, FaUserTie, FaVideo, FaWarehouse, FaWater, FaWheelchair, FaWifi } from "react-icons/fa6";
 
 // Array of property types with actual React Icons
 export const categories = [
@@ -98,6 +98,7 @@ export const facilities = [
   { label: "On-site Management", icon: <FaUserTie /> },
   { label: "TV", icon: <FaTv /> },
   { label: "First Aid Kit", icon: <FaKitMedical /> },
+  { label: "Hospital", icon: <FaHospital />},
   { label: "Hangers", icon: <FaShirt /> },
   { label: "Iron", icon: <FaShirt /> },
   { label: "Dryer", icon: <FaShirt /> },

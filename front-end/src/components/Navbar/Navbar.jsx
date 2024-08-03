@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <a className='logo-container' onClick={() => navigate("/")}>
-        <img className='rentify-logo' src='rentify-logo-1.png'></img> <p>Rentify</p>
+        <img className='rentify-logo' src='/rentify-logo-1.png'></img> <p>Rentify</p>
       </a>
 
       <div className='navbar-search'>
@@ -87,8 +87,8 @@ const Navbar = () => {
 </div>
 
 <Modal show={showModal} onClose={CloseModal}>
-        <p>Login to post your property...</p>
-        <button onClick={() => navigate("/login")}>login</button>
+        <p className='modal-p'>Login to post your property...</p>
+        <button className='modal-button' onClick={() => navigate("/login")}>login</button>
       </Modal>
     </div>
   )

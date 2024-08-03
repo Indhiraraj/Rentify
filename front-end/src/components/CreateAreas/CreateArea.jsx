@@ -535,7 +535,7 @@ const CreateArea = () => {
       {error && <p className="error">{error}</p>}
       <Modal show={showModal} onClose={CloseModal}>
         <p>Are you sure to delete the photo?</p>
-        <button onClick={() => handleRemovePhoto(photoIndex)}>delete</button>
+        <button className="modal-button" onClick={() => handleRemovePhoto(photoIndex)}>delete</button>
       </Modal>
     </div>
   );

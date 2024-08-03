@@ -1,15 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { RentifyContextProvider } from './components/ContextProvider/RentifyContextProvider.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { RentifyContextProvider } from "./components/ContextProvider/RentifyContextProvider.jsx";
 
-
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-<RentifyContextProvider>
-    <App />
+    <RentifyContextProvider>
+      <App />
     </RentifyContextProvider>
   </React.StrictMode>
-)
+);
