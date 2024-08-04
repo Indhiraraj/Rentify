@@ -32,7 +32,7 @@ const AreaEdit = () => {
   useEffect(() => {
     const getArea = async () => {
       if (areaId) {
-        const response = await fetch(`http://localhost:4000/api/areas/${areaId}`);
+        const response = await fetch(`https://rentify-backend-olive.vercel.app/api/areas/${areaId}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -124,7 +124,7 @@ const AreaEdit = () => {
     console.log(formattedData);
     // Send data to the backend
     console.log(formDataToSend);
-    const response = await fetch("http://localhost:4000/area", {
+    const response = await fetch("https://rentify-backend-olive.vercel.app/area", {
       method: "PUT",
       body: formDataToSend,
     });

@@ -82,7 +82,7 @@ const AreaRegistrationForm = () => {
     });
 
 
-    const response = await fetch("http://localhost:4000/area", {
+    const response = await fetch("https://rentify-backend-olive.vercel.app/area", {
       method: "POST",
       body: formDataToSend,
     });

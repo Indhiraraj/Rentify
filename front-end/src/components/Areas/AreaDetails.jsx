@@ -21,7 +21,7 @@ const AreaDetails = () => {
 
   useEffect(() => {
     const fetchArea = async () => {
-      const response = await fetch(`http://localhost:4000/api/areas/${id}`);
+      const response = await fetch(`https://rentify-backend-olive.vercel.app/api/areas/${id}`);
       if (response.ok) {
         const data = await response.json();
         setArea(data.area);
@@ -47,7 +47,7 @@ const AreaDetails = () => {
     }
     setLoading(true);
     setShowModal2(false);
-    const response = await fetch("http://localhost:4000/api/sendMail", {
+    const response = await fetch("https://rentify-backend-olive.vercel.app/api/sendMail", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({

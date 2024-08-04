@@ -12,7 +12,7 @@ const Tenant = () => {
   useEffect(() => {
     const fetchAreas = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/areas");
+        const response = await fetch("https://rentify-backend-olive.vercel.app/api/areas");
         if (response.ok) {
           const data = await response.json();
           setAreas(data.areas);

@@ -187,7 +187,7 @@ const CreateArea = () => {
     };
     // console.log(data);
     setError("loading");
-    const response = await fetch("http://localhost:4000/api/areas/area", {
+    const response = await fetch("https://rentify-backend-olive.vercel.app/api/areas/area", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

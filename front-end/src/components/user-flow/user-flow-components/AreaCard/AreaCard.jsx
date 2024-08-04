@@ -19,7 +19,7 @@ const AreaCard = ({ area }) => {
     event.stopPropagation();
     setFavourite(!favourite);
     const response = await fetch(
-      `http://localhost:4000/api/wishlist/${user.userId}`,
+      `https://rentify-backend-olive.vercel.app/api/wishlist/${user.userId}`,
       {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -35,7 +35,7 @@ const AreaCard = ({ area }) => {
     event.stopPropagation();
     setFavourite(!favourite);
     const response = await fetch(
-      `http://localhost:4000/api/wishlist/${user.userId}`,
+      `https://rentify-backend-olive.vercel.app/api/wishlist/${user.userId}`,
       {
         method: "DELETE",
         headers: { "content-type": "application/json" },

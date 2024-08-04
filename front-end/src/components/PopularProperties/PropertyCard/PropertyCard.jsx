@@ -17,7 +17,7 @@ const PropertyCard = ({area}) => {
 
   const handleAddWishlist = async () => {
     setFavourite(!favourite);
-    const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
+    const response = await fetch(`https://rentify-backend-olive.vercel.app/api/wishlist/${user.userId}`,{
         method: "POST",
         headers: {"content-type" : "application/json"},
         body: JSON.stringify({
@@ -30,7 +30,7 @@ const PropertyCard = ({area}) => {
 
 const handleRemoveWishlist = async () => {
     setFavourite(!favourite);
-    const response = await fetch(`http://localhost:4000/api/wishlist/${user.userId}`,{
+    const response = await fetch(`https://rentify-backend-olive.vercel.app/api/wishlist/${user.userId}`,{
         method: "DELETE",
         headers: {"content-type" : "application/json"},
         body: JSON.stringify({

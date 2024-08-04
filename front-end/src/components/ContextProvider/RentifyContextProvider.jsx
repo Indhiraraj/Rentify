@@ -22,7 +22,7 @@ const RentifyContextProvider = ({ children }) => {
       const items = [];
       for (const element of wishlist) {
         const response = await fetch(
-          `http://localhost:4000/api/areas/${element}`
+          `https://rentify-backend-olive.vercel.app/api/areas/${element}`
         );
         const data = await response.json();
         items.push({ ...data.area, iswishlistItem: true });
@@ -33,7 +33,7 @@ const RentifyContextProvider = ({ children }) => {
 
   const fetchWishlist = async () => {
     const response = await fetch(
-      `http://localhost:4000/api/wishlist/${user.userId}`
+      `https://rentify-backend-olive.vercel.app/api/wishlist/${user.userId}`
     );
     const data = await response.json();
     // console.log(data.wishlist.areas);
