@@ -26,13 +26,13 @@ app.use(cors(corsOptions));
 
 //----------------------------------------------EXPRESS ROUTES-----------------------------------------------//
 
-app.use("/auth", authRouter);
-app.use("/users", userRouter);
-app.use("/areas", areaRouter);
-app.use("/sendMail", mailRouter);
-app.use("/verification", verificationRouter);
-app.use("/wishlist", wishlistRouter);
-app.use("/user-reviews", userReviewRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/areas", areaRouter);
+app.use("/api/sendMail", mailRouter);
+app.use("/api/verification", verificationRouter);
+app.use("/api/wishlist", wishlistRouter);
+app.use("/api/user-reviews", userReviewRouter);
 
 //----------------------------------------------PORT-----------------------------------------------//
 
