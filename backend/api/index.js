@@ -1,13 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import authRouter from "./api/authentication/auth.js";
-import userRouter from "./api/user/user.js";
-import areaRouter from "./api/area/area.js";
-import mailRouter from "./api/mail/mail.js";
-import verificationRouter from "./api/verification/verify.js";
-import wishlistRouter from "./api/wishlist/wishlist.js";
-import userReviewRouter from "./api/reviews/userReviews.js";
+import areaRouter from "../router/area/area.js"
+import authRouter from  "../router/authentication/auth.js"
+import mailRouter from "../router/mail/mail.js"
+import userReviewRouter from "../router/reviews/userReviews.js"
+import userRouter from "../router/user/user.js"
+import verificationRouter from "../router/verification/verify.js"
+import wishlistRouter from "../router/wishlist/wishlist.js"
 //----------------------------------------------EXPRESS AND CORS CONFIGURATION-----------------------------------------------//
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://rentify-gamma-nine.vercel.app/",
   methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
   // credentials: true,
   optionsSuccessStatus: 204,
@@ -26,13 +26,13 @@ app.use(cors(corsOptions));
 
 //----------------------------------------------EXPRESS ROUTES-----------------------------------------------//
 
-app.use("/api/auth", authRouter);
-app.use("/api/users", userRouter);
-app.use("/api/areas", areaRouter);
-app.use("/api/sendMail", mailRouter);
-app.use("/api/verification", verificationRouter);
-app.use("/api/wishlist", wishlistRouter);
-app.use("/api/user-reviews", userReviewRouter);
+app.use("/auth", authRouter);
+app.use("/users", userRouter);
+app.use("/areas", areaRouter);
+app.use("/sendMail", mailRouter);
+app.use("/verification", verificationRouter);
+app.use("/wishlist", wishlistRouter);
+app.use("/user-reviews", userReviewRouter);
 
 //----------------------------------------------PORT-----------------------------------------------//
 
