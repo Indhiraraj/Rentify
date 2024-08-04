@@ -15,14 +15,26 @@ const app = express();
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
+const allowedOrigins = [
+  "https://rentify-gamma-nine.vercel.app",
+  "https://another-allowed-origin.com",
+  // add more origins as needed
+];
+
 const corsOptions = {
-  origin: "https://rentify-gamma-nine.vercel.app/",
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
-  // credentials: true,
   optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
+
 
 //----------------------------------------------EXPRESS ROUTES-----------------------------------------------//
 
