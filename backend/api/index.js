@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const allowedOrigins = [
   "https://rentify-gamma-nine.vercel.app",
-  "https://another-allowed-origin.com",
-  // add more origins as needed
 ];
 
 const corsOptions = {
@@ -30,6 +28,7 @@ const corsOptions = {
     }
   },
   methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
+  credentials: true,
   optionsSuccessStatus: 204,
 };
 
