@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const allowedOrigins = [
-  "https://rentify-gamma-nine.vercel.app",
+  "https://rentify-frontend-nu.vercel.app/",
 ];
 
 const corsOptions = {
