@@ -16,14 +16,16 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const allowedOrigins = [
-  "https://rentify-frontend-nu.vercel.app/",
+  "https://rentify-frontend-nu.vercel.app",
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log("Incoming origin:", origin);
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
+      console.log("Not allowed by CORS");
       callback(new Error("Not allowed by CORS"));
     }
   },
@@ -33,6 +35,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 
 
 //----------------------------------------------EXPRESS ROUTES-----------------------------------------------//
