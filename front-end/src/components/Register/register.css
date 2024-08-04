@@ -1,6 +1,6 @@
 .register{
-    background: url("Register-background.jpg");
-    background: linear-gradient(rgba(0, 0, 0, 0.125), rgba(0, 0, 0, 0.125)), url("Register-background.jpg");
+    background: url("/Register-background.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.125), rgba(0, 0, 0, 0.125)), url("/Register-background.jpg");
 
     background-size: cover;
     display: flex;

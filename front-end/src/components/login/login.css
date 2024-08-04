@@ -1,7 +1,7 @@
 .login {
   background: linear-gradient(rgba(0, 0, 0, 0.125), rgba(0, 0, 0, 0.125)),
-    url("login-background.jpg");
-    background: url("login-background.jpg");
+    url("/login-background.jpg");
+    background: url("/login-background.jpg");
   background-size: cover;
   display: flex;
   align-items: center;
