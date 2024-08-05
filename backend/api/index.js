@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 const allowedOrigins = [
-  "rentifyy.vercel.app",
+  "https://rentifyy.vercel.app",
 ];
 
 const corsOptions = {
@@ -29,7 +29,6 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  // origin: "*",
   methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
