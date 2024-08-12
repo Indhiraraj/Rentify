@@ -18,6 +18,11 @@ const firebaseConfig = {
 };
 
 console.log("Firebase Storage Bucket:", process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
+console.log(process.env.REACT_APP_FIREBASE_API_KEY);
+console.log(process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
+console.log(process.env.REACT_APP_FIREBASE_PROJECT_ID);
+
+
 
 
 // Initialize Firebase
