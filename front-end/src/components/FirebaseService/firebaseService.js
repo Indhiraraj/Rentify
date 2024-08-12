@@ -17,6 +17,9 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
+console.log("Firebase Storage Bucket:", process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
