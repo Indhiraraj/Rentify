@@ -8,6 +8,7 @@ import userReviewRouter from "../router/reviews/userReviews.js"
 import userRouter from "../router/user/user.js"
 import verificationRouter from "../router/verification/verify.js"
 import wishlistRouter from "../router/wishlist/wishlist.js"
+import searchRouter from "../router/search/search.js"
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -50,6 +51,7 @@ app.use("/api/sendMail", mailRouter);
 app.use("/api/verification", verificationRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/user-reviews", userReviewRouter);
+app.use("/api/search", searchRouter);
 
 //----------------------------------------------PORT-----------------------------------------------//
 
