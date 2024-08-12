@@ -36,7 +36,13 @@ router.get("/:query", async (req,res) => {
             const areas = await area_collection.find({
                 $or: [
                     {category: {$regex: query, $options: "i"}},
-                    {title: {$regex: query, $options: "i"}}
+                    {type: {$regex: query,  $options: "i"}},
+                    {"area_details.title": {$regex: query, $options: "i"}},
+                    {"area_details.description": {$regex: query, $options: "i"}},
+                    {"address.street_address": {$regex: query, $options: "i"}},
+                    {"address.state": {$regex: query, $options: "i"}},
+                    {"address.country": {$regex: query, $options: "i"}},
+                    {"address.city": {$regex: query, $options: "i"}}
                 ]
             }).toArray();
             res.json({ areas: areas });
