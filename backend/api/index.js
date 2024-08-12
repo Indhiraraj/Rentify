@@ -8,6 +8,9 @@ import userReviewRouter from "../router/reviews/userReviews.js"
 import userRouter from "../router/user/user.js"
 import verificationRouter from "../router/verification/verify.js"
 import wishlistRouter from "../router/wishlist/wishlist.js"
+import dotenv from 'dotenv';
+
+dotenv.config();
 //----------------------------------------------EXPRESS AND CORS CONFIGURATION-----------------------------------------------//
 
 const app = express();
@@ -15,9 +18,9 @@ const app = express();
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-const allowedOrigins = [
-  "https://rentifyy.vercel.app",
-];
+ // Load environment variables
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -29,9 +32,9 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: "GET,PUT,POST,HEAD,PATCH,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
+  methods: process.env.CORS_METHODS || "GET,PUT,POST,HEAD,PATCH,DELETE",
+  credentials: process.env.CORS_CREDENTIALS === 'true',
+  optionsSuccessStatus: parseInt(process.env.CORS_SUCCESS_STATUS, 10) || 204,
 };
 
 app.use(cors(corsOptions));

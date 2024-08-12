@@ -3,8 +3,12 @@ import express from "express";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import { sendVerificationEmail } from "../../utilities/utilities.js";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const uri =
-  "mongodb+srv://indhiraraj7:msLEghAuHzCUgvRQ@cluster0.rpstvnd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  process.env.MONGO_DB_URI;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,

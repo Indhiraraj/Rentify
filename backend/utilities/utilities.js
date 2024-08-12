@@ -1,8 +1,12 @@
 import nodemailer from "nodemailer";
 import { MongoClient, ServerApiVersion } from "mongodb";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const uri =
-  "mongodb+srv://indhiraraj7:msLEghAuHzCUgvRQ@cluster0.rpstvnd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  process.env.MONGO_DB_URI;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -31,16 +35,16 @@ const db = client.db("rentify");
   
    const sendVerificationEmail = async (verification) => {
     let transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
+      host: process.env.NODE_MAILER_HOST,
+      port: process.env.NODE_MAILER_PORT,
       auth: {
-        user: "764255001@smtp-brevo.com",
-        pass: "1ksgdRprYTFSaCVJ",
+        user: process.env.NODE_MAILER_USER,
+        pass: process.env.NODE_MAILER_PASS,
       },
     });
   
     let mailOptions = {
-      from: "indhiraraj7@gmail.com",
+      from: process.env.NODE_MAILER_FROMM,
       to: verification.email,
       subject: "verification",
       text: `Your verification code is : ${verification.verification_code}`,
@@ -60,15 +64,15 @@ const db = client.db("rentify");
   
    const sendOwnerData = async (userEmail,ownerDetails) => {
     let transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
+      host: process.env.NODE_MAILER_HOST,
+      port: process.env.NODE_MAILER_PORT,
       auth: {
-        user: "764255001@smtp-brevo.com",
-        pass: "1ksgdRprYTFSaCVJ",
+        user: process.env.NODE_MAILER_USER,
+        pass: process.env.NODE_MAILER_PASS,
       },
     });
     let mailOptions = {
-      from: "indhiraraj7@gmail.com",
+      from: process.env.NODE_MAILER_FROM,
       to: userEmail,
       subject: "owner data",
       text: "",
