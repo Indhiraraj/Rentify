@@ -6,7 +6,17 @@
     width: 100%;/* Ensures the container takes up the full viewport height */
 }
 
-.search h2{
+.search-center{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 90svh;
+  justify-content: center; 
+  align-items: center;
+  width: 100%;
+}
+
+.search-center h2{
     color: var(--secondary-color);
 }
 
