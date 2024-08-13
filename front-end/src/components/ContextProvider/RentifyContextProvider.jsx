@@ -16,6 +16,7 @@ const RentifyContextProvider = ({ children }) => {
   const [reviews, setReviews] = useState(null);
   const [wishlist, setWishlist] = useState([]);
   const [wishlistItems, setWishListItems] = useState([]);
+  const [resultAreas, setResultAreas] = useState([]);
 
   const fetchWishlistItems = async () => {
     if (wishlist) {
@@ -40,6 +41,18 @@ const RentifyContextProvider = ({ children }) => {
     setWishlist(data.wishlist.areas);
   };
 
+  const search = async (key) => {
+    try {
+      const response = await fetch(`https://rentify-backend-olive.vercel.app/api/search/${key}`);
+      const data = await response.json();
+      setResultAreas(data.areas);
+    } catch (error) {
+      console.log("error: " + error);
+
+    }
+
+  }
+
   const login = (userData) => {
     AuthServiceProvider.login(userData);
     setUser(userData);
@@ -51,6 +64,7 @@ const RentifyContextProvider = ({ children }) => {
     setWishListItems([]);
     setWishlist([]);
   };
+
   return (
     <RentifyContext.Provider
       value={{
@@ -65,6 +79,8 @@ const RentifyContextProvider = ({ children }) => {
         fetchWishlist,
         wishlistItems,
         fetchWishlistItems,
+        resultAreas,
+        search
       }}
     >
       {children}

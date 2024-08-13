@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router'
 import Modal from '../CustomModal/Modal'
 
 const Navbar = () => {
-    const {user,logout} = useContext(RentifyContext);
+    const {user,logout,search} = useContext(RentifyContext);
+    const [searchText,setSearchText] = useState("");
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [dropdown,setDropdown] = useState(false);
@@ -19,6 +20,11 @@ const Navbar = () => {
     const CloseModal = () => {
       setShowModal(false);
     };
+
+    const handleChange = (e) => {
+      setSearchText(e.target.value);
+    }
+
   return (
     <div className='navbar'>
       <a className='logo-container' onClick={() => navigate("/")}>
@@ -26,8 +32,8 @@ const Navbar = () => {
       </a>
 
       <div className='navbar-search'>
-        <input type='text' placeholder='Search...'></input>
-        <IconButton>
+        <input type='text' value={searchText} onChange={handleChange} placeholder='Search...'></input>
+        <IconButton onClick={() => search(searchText)}>
         <Search
       className='search-icon'
       sx={{
