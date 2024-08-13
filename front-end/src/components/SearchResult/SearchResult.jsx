@@ -15,8 +15,8 @@ const SearchResult = () => {
         <div className="areas">
           {resultAreas.map((area) => (
             <AreaCard
-              key={resultAreas.areaId}
-              area={resultAreas}
+              key={area.areaId}
+              area={area}
             />
           ))}
         </div>
