@@ -15,6 +15,7 @@ import WishList from './components/Wishlist/WishList';
 import useStartEffect from './CustomEffects/StartEffect';
 import CreateArea from './components/CreateAreas/CreateArea';
 import AreaDetails from './components/Areas/AreaDetails';
+import SearchResult from './components/SearchResult/SearchResult';
 
 function App() {
   const { user } = useContext(RentifyContext);
@@ -37,6 +38,7 @@ function App() {
         <Route path='/rent' Component={Owner} />
         <Route path='/postArea' Component={CreateArea} />
         <Route path='/areas/:id' Component={AreaDetails} />
+        <Route path='/searchResult' Component={SearchResult} />
         {user && <>
           <Route path='/areaEdit' Component={AreaEdit} />
           <Route path='/wishlist' Component={WishList} />

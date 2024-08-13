@@ -33,7 +33,11 @@ const Navbar = () => {
 
       <div className='navbar-search'>
         <input type='text' value={searchText} onChange={handleChange} placeholder='Search...'></input>
-        <IconButton onClick={() => search(searchText)}>
+        <IconButton onClick={async () => {
+          await search(searchText);
+          navigate('/searchResult')
+        }}
+          >
         <Search
       className='search-icon'
       sx={{
