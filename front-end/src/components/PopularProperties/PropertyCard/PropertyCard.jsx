@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import "./propertyCard.css";
 import { Star, Favorite } from "@mui/icons-material";
 import { RentifyContext } from "../../ContextProvider/RentifyContextProvider";
+import { useNavigate } from "react-router";
 
 const PropertyCard = ({area}) => {
+  const navigate = useNavigate();
   const [favourite, setFavourite] = useState(false);
   const {user,wishlist,fetchWishlist} = useContext(RentifyContext);
 
