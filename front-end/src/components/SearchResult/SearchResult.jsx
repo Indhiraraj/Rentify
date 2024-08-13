@@ -13,7 +13,7 @@ const SearchResult = () => {
     <div className='search'>
         {resultAreas ? (
         <div className="areas">
-          {areas.map((area) => (
+          {resultAreas.map((area) => (
             <AreaCard
               key={resultAreas.areaId}
               area={resultAreas}
